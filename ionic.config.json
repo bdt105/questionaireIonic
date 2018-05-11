@@ -1,0 +1,8 @@
+{
+  "name": "questionnaireIonic",
+  "app_id": "4f5e660b",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
