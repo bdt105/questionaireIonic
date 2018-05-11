@@ -9,11 +9,36 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+// Custom components
+import { QuestionnairesLocalComponent } from '../components/questionnaire/questionnairesLocal.component';
+import { TesterComponent } from '../components/test/tester.component';
+import { QuestionSimpleComponent } from '../components/question/questionSimple.component';
+import { QuestionGroupComponent } from '../components/question/questionGroup.component';
+import { QuestionEditComponent } from '../components/question/questionEdit.component';
+import { QuestionsLocalComponent } from '../components/question/questionsLocal.component';
+import { QuestionCheckComponent } from '../components/question/questionCheck.component';
+import { QuestionnaireLocalComponent } from '../components/questionnaire/questionnaireLocal.component';
+import { QuestionnaireOneComponent } from '../components/questionnaire/questionnaireOne.component';
+// import { ConfirmationComponent } from '../components/standard/confirmation.component';
+import { SearchComponent } from '../components/search/search.component';
+
+// Custom services
+import { MenuService } from '@sharedServices/menu.service';
+import { ConfigurationService } from 'bdt105angularconfigurationservice';
+import { ConnexionTokenService } from 'bdt105angularconnexionservice';
+import { AuthGuard } from '@sharedServices/auth.guard';
+import { QuestionnaireService } from '@appSharedServices/questionnaire.service';
+import { GroupByPipe } from '@sharedServices/groupBy.pipe';
+import { SafePipe } from '@sharedServices/safe.pipe';
+import { MiscellaneousService } from '@sharedServices/miscellaneous.service';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    QuestionnairesLocalComponent,
+    QuestionnaireLocalComponent
   ],
   imports: [
     BrowserModule,
@@ -23,12 +48,20 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    QuestionnairesLocalComponent,
+    QuestionnaireLocalComponent
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    QuestionnaireService,
+    AuthGuard, MenuService, ConfigurationService, MiscellaneousService, 
+        ConnexionTokenService, QuestionnaireService,
+    {
+      "provide": ErrorHandler, 
+      "useClass": IonicErrorHandler
+    }
   ]
 })
 export class AppModule {}

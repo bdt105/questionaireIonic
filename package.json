@@ -19,6 +19,7 @@
     "@angular/core": "5.2.10",
     "@angular/forms": "5.2.10",
     "@angular/http": "5.2.10",
+    "@angular/router": "^5.2.7",
     "@angular/platform-browser": "5.2.10",
     "@angular/platform-browser-dynamic": "5.2.10",
     "@ionic-native/core": "4.7.0",
@@ -30,11 +31,18 @@
     "ionicons": "3.0.0",
     "rxjs": "5.5.10",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.26"
+    "zone.js": "0.8.26",
+    "bdt105angularconfigurationservice": "^2.0.0",
+    "bdt105angularconnexionservice": "^2.0.1",
+    "bdt105toolbox": "^1.0.86"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.9",
     "typescript": "~2.6.2"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "config": {
+    "ionic_source_map_type": "source-map",
+    "ionic_webpack": "./webpack.config.js"
+  }
 }
