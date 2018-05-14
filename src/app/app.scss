@@ -25,3 +25,27 @@
        bottom: 5%;
     }
   }
+
+  .question {
+    background: color($colors, light);
+  }
+
+  .progress-outer {
+    width: 96%;
+    margin: 10px 2%;
+    padding: 3px;
+    text-align: center;
+    background-color: map-get($colors, primary);
+    border: 1px solid #dcdcdc;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.progress-inner {
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 5px;
+    border-radius: 5px;
+    color: black;
+    background-color: map-get($colors, secondary);
+}  

@@ -26,5 +26,4 @@ export class QuestionEditComponent extends QuestionLocalComponent {
         super.delete()
     }
 
-
 }

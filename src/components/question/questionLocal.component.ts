@@ -67,6 +67,19 @@ export class QuestionLocalComponent extends QuestionComponent {
             confirm.present();
         }
     }
+
+    newQuestionAfterQuestion(question: any) {
+        if (this.questionnaire.showGroup) {
+            let alert = this.alertCtrl.create({
+                title: this.translate('New question'),
+                subTitle: this.translate('Please un group your questionnaire first'),
+                buttons: [this.translate('OK')]
+            });
+            alert.present();
+        } else {
+            super.newQuestionAfterQuestion(question);
+        }
+    }    
     // deleteWithConfirmationQuestion(question: any) {
     //     if (this.questionnaireService.isQuestionEmpty(question)){
     //         this.deleteQuestion(this.questionnaire, question);

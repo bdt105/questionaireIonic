@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 import { QuestionnaireService } from '@appSharedServices/questionnaire.service';
 import { MiscellaneousService } from '@sharedServices/miscellaneous.service';
@@ -14,6 +14,8 @@ import { QuestionnairePage } from '@pages/questionnaire/questionnaire.page';
 })
 
 export class QuestionnairesLocalComponent extends QuestionnairesComponent {
+
+    @Input() test: boolean = false;
 
     @Output() selected: EventEmitter<any> = new EventEmitter<any>();
 

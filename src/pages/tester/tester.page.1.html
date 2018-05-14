@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            {{translate('Test in progress')}}
+        </ion-title>
+        <ion-buttons end>
+            <button *ngIf="indexCurrentQuestion > 0" ion-button color="primary" (click)="previous()">{{translate('Previous')}}</button>
+        </ion-buttons>
+        <ion-buttons end>
+            <button *ngIf="questions && indexCurrentQuestion < questions.length" ion-button color="primary" (click)="next()">{{translate('Next')}}</button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding *ngIf="questions" (swipe)="swipe($event)">
+
+    <progressBar [progressionIndex]="indexCurrentQuestion" [maxIndex]="questions.length - 1" [caption]="pourcentage + '%'"></progressBar>
+
+    <p>{{questions[this.indexCurrentQuestion].questionLabel}}</p>
+    <p>{{questions[this.indexCurrentQuestion].question}}</p>
+
+
+</ion-content>

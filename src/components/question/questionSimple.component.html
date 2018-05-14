@@ -1,45 +1,23 @@
-<!-- Read only -->
-<ion-card *ngIf="!canEdit()">
+<!-- Read only and tests -->
+<ion-card *ngIf="!canEdit()" class="question">
     <ion-card-header no-padding>
-        <!-- <ion-row>
-            <ion-col align-self: stretch>
-                <span *ngIf="question.checked">
-                    <span *ngIf="question.status == true">
-                        <ion-icon name="thumbs-up"></ion-icon>
-                    </span>
-                    <span *ngIf="question.status == false">
-                        <ion-icon name="thumbs-down"></ion-icon>
-                    </span>
-                    <strong>{{question.customAnswer}}
-                        <br>
-                    </strong>
-                </span>
-            </ion-col>
-            <ion-col align-self: stretch style="text-align: right">
-                <button ion-button icon-left clear small (click)="toggleEdit()">
-                    {{translate('Edit')}}
-                </button>
-                <button ion-button icon-left clear small (click)="toggleFavorite()">
-                    <ion-icon *ngIf="!question.favorite" name="star-outline"></ion-icon>
-                    <ion-icon *ngIf="question.favorite" name="star"></ion-icon>
-                </button>
-            </ion-col>
-        </ion-row> -->
         <div (click)="toggleAnswers()">
             <ion-card-header text-wrap *ngIf="showLabel && question.questionLabel" [innerHTML]="question.questionLabel"></ion-card-header>
             <ion-card-header text-wrap *ngIf="question.question" [innerHTML]="question.question"></ion-card-header>
         </div>
-        <ion-row>
-
-        </ion-row>
-        <!-- <ion-row>
-            <button ion-button icon-left clear small (click)="question.showAnswers = !question.showAnswers">
-                {{translate('See answers')}}
-            </button>
-            <button ion-button icon-left clear small (click)="toggleEdit()">
-                {{translate('Edit')}}
-            </button>
-        </ion-row> -->
+        <div style="text-align: center">
+            <textarea *ngIf="showCustomAnswer" type="text" [(ngModel)]="question.customAnswer" style="width: 90%; border:0" placeholder="{{translate('Enter your answer here and swipe to check it.')}}"></textarea>
+            <div *ngIf="question.checked">
+                <p *ngIf="question.status">
+                    <ion-icon color="success" name="thumbs-up" style="font-size: 2em"></ion-icon>
+                    <ion-label>{{translate('The answer is correct')}}</ion-label>
+                </p>
+                <p *ngIf="!question.status">
+                    <ion-icon color="danger" name="thumbs-down" style="font-size: 2em"></ion-icon>
+                    <ion-label>{{translate('The answer is not correct, below is the right answer')}}</ion-label>
+                </p>
+            </div>
+        </div>
     </ion-card-header>
 
     <ion-card-content no-padding *ngIf="question.showAnswers || showAnswers">
@@ -75,49 +53,3 @@
 <div *ngIf="canEdit()">
     <questionEdit [question]="question" [questionnaire]="questionnaire"></questionEdit>
 </div>
-
-<!-- <div *ngIf="!canEdit()" style="cursor: pointer">
-        <div class="row">
-            <div class="col-11" (click)="question.showAnswers = !question.showAnswers">
-                <span *ngIf="question.checked">
-                    <span *ngIf="question.status == true" class="badge badge-pill badge-success"><i class="fa fa-thumbs-up"></i></span>
-                    <span *ngIf="question.status == false" class="badge badge-pill badge-danger"><i class="fa fa-thumbs-down"></i></span>                    
-                    <strong>{{question.customAnswer}}<br></strong>
-                </span>
-                <div *ngIf="question.questionLabel" [innerHTML]="question.questionLabel"></div>
-                <div *ngIf="question.question" [innerHTML]="question.question"></div>
-                <div *ngIf="question.detail" [innerHTML]="question.detail"></div>
-            </div>
-            <div class="col-1 text-right" *ngIf="(questionnaire && questionnaire.edit) || editable" style="cursor: pointer;padding:0; margin: 0">
-                <div class="dropdown">
-                    <i *ngIf="!question.favorite" class="fa fa-star-o" (click)="setFavorite(question, true)"></i>
-                    <i *ngIf="question.favorite" class="fa fa-star" (click)="setFavorite(question, false)" title="{{translate('Set as favorite')}}"></i>
-                    <button style="background-color:transparent; border: 0" class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i  class="fa fa-ellipsis-v"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" (click)="toggleEdit()"><i class="fa fa-pencil"></i> {{translate('Edit')}}</a>
-                        <a class="dropdown-item" (click)="newAnswer(question)"><i class="fa fa-plus"></i> {{translate('New answer')}}</a>
-                        <a class="dropdown-item" (click)="deleteWithConfirmationQuestion(question)"><i class="fa fa-trash"></i> {{translate('Delete this question')}}</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" (click)="export()"><i class="fa fa-upload"></i> {{translate('Export this question')}}</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div *ngIf="question.showAnswers">
-            <br>
-            <div *ngFor="let answer of question.answers" class="list-group-item">
-                <div class="row ">
-                    <div class="col-10">
-                        {{answer.answer}}
-                        <div *ngIf="answer.detail" [innerHTML]="answer.detail"></div>
-                    </div>
-                    <div class="col-2 text-right">
-                        <span class="badge badge-pill badge-warning" *ngIf="answer.correctDistance">{{answer.correctDistance}}</span>
-                        <span class="badge badge-pill badge-success" *ngIf="answer.point">{{answer.point}}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->

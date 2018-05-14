@@ -1,14 +1,20 @@
 <ion-list>
     <!-- Questionnaires -->
-    <button ion-item *ngFor="let questionnaire of questionnaires" (click)="showModal(questionnaire)">
-        <h2 [style.color]="questionnaire.disabled ? 'grey' : 'black'">{{questionnaire.title}}</h2>
-        <p>
-            <small>{{questionnaire.type}}</small>
-        </p>
-        <p item-end>
-            <ion-badge>
+    <div *ngFor="let questionnaire of questionnaires">
+        <button ion-item (click)="showModal(questionnaire)">
+            <h2 [style.color]="questionnaire.disabled ? 'grey' : 'black'">{{questionnaire.title}}</h2>
+            <p>
+                <small>{{questionnaire.type}}</small>
+            </p>
+            <ion-badge item-end>
                 <small>{{questionnaire.questions.length}}</small>
             </ion-badge>
-        </p>
-    </button>
+        </button>
+        <ion-item *ngIf="test">
+            <ion-label><small>{{translate('Add to you test')}}</small></ion-label>
+            <ion-toggle [(ngModel)]="questionnaire.test"></ion-toggle>
+
+        
+        </ion-item>
+    </div>
 </ion-list>

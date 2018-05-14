@@ -8,6 +8,7 @@ import { ListPage } from '@pages/list/list';
 import { QuestionnairesPage } from '@pages/questionnaire/questionnaires.page';
 import { LoginPage } from '@pages/login/login.page';
 import { ConnexionTokenService } from 'bdt105angularconnexionservice';
+import { TesterDefinitionPage } from '@pages/tester/testerDefinition.page';
 
 @Component({
     templateUrl: 'app.html'
@@ -26,7 +27,7 @@ export class MyApp {
         this.pages = [
             { title: 'Home', component: HomePage },
             { title: 'Login', component: LoginPage },
-            { title: 'Test', component: ListPage },
+            { title: 'Test', component: TesterDefinitionPage },
             { title: 'Questionnaires', component: QuestionnairesPage }
         ];
 

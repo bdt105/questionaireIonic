@@ -12,21 +12,24 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // Custom components
 import { QuestionnairesLocalComponent } from '@components/questionnaire/questionnairesLocal.component';
-import { TesterComponent } from '@components/test/tester.component';
+import { TesterComponent } from '@components/tester/tester.component';
 import { QuestionSimpleComponent } from '@components/question/questionSimple.component';
 import { QuestionGroupComponent } from '@components/question/questionGroup.component';
 import { QuestionEditComponent } from '@components/question/questionEdit.component';
 import { QuestionsLocalComponent } from '@components/question/questionsLocal.component';
 import { QuestionCheckComponent } from '@components/question/questionCheck.component';
 import { QuestionnaireLocalComponent } from '@components/questionnaire/questionnaireLocal.component';
-import { LoginPage } from '@pages/login/login.page';
 import { SearchComponent } from '@components/search/search.component';
 import { MenuPopover} from '@components/popover/menu.popover';
+import { ProgressBarComponent} from '@sharedComponents/progressBar.component';
 
 // Pages
 import { GenericPage } from '@pages/generic.page';
+import { LoginPage } from '@pages/login/login.page';
 import { QuestionnairesPage} from '@pages/questionnaire/questionnaires.page';
 import { QuestionnairePage } from '@pages/questionnaire/questionnaire.page';
+import { TesterDefinitionPage } from '@pages/tester/testerDefinition.page';
+import { TesterPage } from '@pages/tester/tester.page';
 
 // Custom services
 import { MenuService } from '@sharedServices/menu.service';
@@ -61,7 +64,10 @@ export function init(configurationService: ConfigurationService) {
         QuestionEditComponent,
         LoginPage,
         QuestionnairesPage,
-        MenuPopover
+        MenuPopover,
+        TesterDefinitionPage,
+        ProgressBarComponent,
+        TesterPage
     ],
     imports: [
         BrowserModule,
@@ -78,7 +84,10 @@ export function init(configurationService: ConfigurationService) {
         LoginPage,
         QuestionnairesPage,
         MenuPopover,
-        QuestionnairePage 
+        QuestionnairePage,
+        TesterDefinitionPage,
+        ProgressBarComponent,
+        TesterPage
     ],
     providers: [
         StatusBar,
