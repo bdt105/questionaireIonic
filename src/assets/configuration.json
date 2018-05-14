@@ -1,0 +1,35 @@
+{
+    "common":
+    {
+        "applicationName": "Questionnaires",
+        "homeUrl": "/home",
+        "logToFile": true,
+        "logToConsole": true,
+        "loginUrl": "http://vps453669.ovh.net/authentificationmanager/login/questionnaire",
+        "loginUrl1": "http://localhost:4300/login/questionnaire",
+        "userUrl": "http://vps453669.ovh.net/authentificationmanager/user",
+        "language": "FR",
+        "saveApiBaseUrl": "http://vps453669.ovh.net/fs/",
+        "contactEmail": "bdt105@gmail.com",
+        "dataUrl": "./assets/data.json"
+    },
+    "questionnaires":
+    [
+        {
+            "id": "importantWord",
+            "questionLabel": "Please translate the word",
+            "answerLabelOk": "It's correct",
+            "answerLabelNok": "It's not correct",
+            "correctDistance": 0,
+            "point": 1
+        },
+        {
+            "id": "irregularVerbs",
+            "questionLabel": "Please conjugate the verb",
+            "answerLabelOk": "It's correct",
+            "answerLabelNok": "It's not correct",
+            "correctDistance": 0,
+            "point": 1
+        }
+    ]
+}

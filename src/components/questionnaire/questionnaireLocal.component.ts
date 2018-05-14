@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { QuestionnaireService } from '@appSharedServices/questionnaire.service';
 import { MiscellaneousService } from '@sharedServices/miscellaneous.service';
 import { QuestionnaireComponent } from '@appSharedComponents/questionnaire.component';
+import { AlertController } from 'ionic-angular';
 
 @Component({
     selector: 'questionnaireLocal',
@@ -13,12 +13,34 @@ import { QuestionnaireComponent } from '@appSharedComponents/questionnaire.compo
 
 export class QuestionnaireLocalComponent extends QuestionnaireComponent {
 
-
-    constructor(public router: Router, public questionnaireService: QuestionnaireService, public miscellaneousService: MiscellaneousService){
-        super(router, questionnaireService, miscellaneousService);
+    constructor(public questionnaireService: QuestionnaireService, public miscellaneousService: MiscellaneousService, public alertCtrl: AlertController) {
+        super(questionnaireService, miscellaneousService);
     }
 
-    ngOnInit(){
+    delete() {
+        if (this.questionnaireService.isQuestionnaireEmpty(this.questionnaire)) {
+            super.delete();
+        } else {
+            let confirm = this.alertCtrl.create({
+                title: this.translate("Deleting a questionnaire ?"),
+                message: this.translate("Are you sure you want to delete that questionnaire ?"),
+                buttons: [
+                    {
+                        text: this.translate('No'),
+                        handler: () => {
+
+                        }
+                    },
+                    {
+                        text: this.translate('Yes'),
+                        handler: () => {
+                            super.delete();
+                        }
+                    }
+                ]
+            });
+            confirm.present();
+        }
     }
 
     // deleteWithConfirmation() {
@@ -58,8 +80,8 @@ export class QuestionnaireLocalComponent extends QuestionnaireComponent {
     //     this.bsModalRef.content.title = this.translate("Exporting a questionnaire");
     //     this.bsModalRef.content.readOnly = false;
     //     this.bsModalRef.content.bodyMessage = this.translate("Copy the content below");;
-        
+
     //     this.bsModalRef.content.message = JSON.stringify(this.questionnaire);
     // }
-    
+
 }

@@ -1,0 +1,37 @@
+<ion-header *ngIf="isConnected()">
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{translate('Questionnaires')}}
+            <ion-badge *ngIf="questionnaires">{{questionnaires.length}}</ion-badge>
+        </ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="toggleSearch()">
+                <ion-icon name="search"></ion-icon>
+            </button>
+            <!-- <button ion-button icon-only (click)="refresh()">
+                <ion-icon name="refresh"></ion-icon>
+            </button> -->
+            <button ion-button icon-only (click)="showPopover($event)">
+                <ion-icon name="more"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<!-- Questionnaires -->
+<ion-content  *ngIf="isConnected()" no-padding>
+    <ion-searchbar *ngIf="searchBar" (ionInput)="searchInput($event)"></ion-searchbar>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content>
+        </ion-refresher-content>
+    </ion-refresher>
+    <questionnairesLocal #questionnairesLocal [searchTerm]="searchTerm" (loaded)="loaded($event)"></questionnairesLocal>
+</ion-content>
+
+<ion-fab right bottom>
+    <button mini ion-fab color="secondary" (click)="newQuestionnaire()">
+        <ion-icon name="add"></ion-icon>
+    </button>
+</ion-fab>

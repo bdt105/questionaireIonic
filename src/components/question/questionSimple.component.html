@@ -1,6 +1,82 @@
-<div>
-    <!-- Read only -->
-    <div *ngIf="!canEdit()" style="cursor: pointer">
+<!-- Read only -->
+<ion-card *ngIf="!canEdit()">
+    <ion-card-header no-padding>
+        <!-- <ion-row>
+            <ion-col align-self: stretch>
+                <span *ngIf="question.checked">
+                    <span *ngIf="question.status == true">
+                        <ion-icon name="thumbs-up"></ion-icon>
+                    </span>
+                    <span *ngIf="question.status == false">
+                        <ion-icon name="thumbs-down"></ion-icon>
+                    </span>
+                    <strong>{{question.customAnswer}}
+                        <br>
+                    </strong>
+                </span>
+            </ion-col>
+            <ion-col align-self: stretch style="text-align: right">
+                <button ion-button icon-left clear small (click)="toggleEdit()">
+                    {{translate('Edit')}}
+                </button>
+                <button ion-button icon-left clear small (click)="toggleFavorite()">
+                    <ion-icon *ngIf="!question.favorite" name="star-outline"></ion-icon>
+                    <ion-icon *ngIf="question.favorite" name="star"></ion-icon>
+                </button>
+            </ion-col>
+        </ion-row> -->
+        <div (click)="toggleAnswers()">
+            <ion-card-header text-wrap *ngIf="showLabel && question.questionLabel" [innerHTML]="question.questionLabel"></ion-card-header>
+            <ion-card-header text-wrap *ngIf="question.question" [innerHTML]="question.question"></ion-card-header>
+        </div>
+        <ion-row>
+
+        </ion-row>
+        <!-- <ion-row>
+            <button ion-button icon-left clear small (click)="question.showAnswers = !question.showAnswers">
+                {{translate('See answers')}}
+            </button>
+            <button ion-button icon-left clear small (click)="toggleEdit()">
+                {{translate('Edit')}}
+            </button>
+        </ion-row> -->
+    </ion-card-header>
+
+    <ion-card-content no-padding *ngIf="question.showAnswers || showAnswers">
+        <ion-card-content *ngFor="let answer of question.answers">
+            <ion-row>
+                <ion-col>
+                    {{answer.answer}}
+                    <div *ngIf="answer.detail" [innerHTML]="answer.detail"></div>
+                </ion-col>
+                <ion-col item-end style="text-align: right;">
+                    <ion-badge item-end>{{answer.correctDistance}}</ion-badge>
+                    <ion-badge item-end>{{answer.point}}</ion-badge>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+        <button ion-button icon-left clear small (click)="toggleEdit()">
+            {{translate('Edit')}}
+        </button>
+        <button ion-button icon-left clear small (click)="newQuestionAfterQuestion(question)">
+            {{translate('New question')}}
+        </button>
+        <button ion-button icon-left clear small (click)="newAnswer()">
+            {{translate('New answer')}}
+        </button>
+        <button ion-button icon-left clear small (click)="toggleFavorite()">
+            <ion-icon *ngIf="!question.favorite" name="star-outline"></ion-icon>
+            <ion-icon *ngIf="question.favorite" name="star"></ion-icon>
+        </button>
+    </ion-card-content>
+</ion-card>
+
+<!-- Modifications -->
+<div *ngIf="canEdit()">
+    <questionEdit [question]="question" [questionnaire]="questionnaire"></questionEdit>
+</div>
+
+<!-- <div *ngIf="!canEdit()" style="cursor: pointer">
         <div class="row">
             <div class="col-11" (click)="question.showAnswers = !question.showAnswers">
                 <span *ngIf="question.checked">
@@ -9,9 +85,7 @@
                     <strong>{{question.customAnswer}}<br></strong>
                 </span>
                 <div *ngIf="question.questionLabel" [innerHTML]="question.questionLabel"></div>
-                <!-- <em *ngIf="question.questionLabel">{{question.questionLabel}}<br></em> -->
                 <div *ngIf="question.question" [innerHTML]="question.question"></div>
-                <!-- <strong *ngIf="question.question">{{question.question}}<br></strong> -->
                 <div *ngIf="question.detail" [innerHTML]="question.detail"></div>
             </div>
             <div class="col-1 text-right" *ngIf="(questionnaire && questionnaire.edit) || editable" style="cursor: pointer;padding:0; margin: 0">
@@ -46,11 +120,4 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Modifications -->
-    <div *ngIf="canEdit()">
-        <questionEdit [question]="question" [questionnaire]="questionnaire"></questionEdit>
-    </div>
-
-</div>
+    </div> -->

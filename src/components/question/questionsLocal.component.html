@@ -1,20 +1,55 @@
-<div *ngIf="!group" >
-    <div *ngFor="let question of questions" class="list-group-item">
-        <questionSimple [question]="question" [questionnaire]="questionnaire" [editable]="editable" (change)="changed()"></questionSimple>
-    </div>
-</div>
-<div *ngIf="group" class="list-group">
-    <div *ngFor="let object of questions | groupBy:'questionLabel'; let i = index" 
-        class="list-group-item" [style.background-color]="i%2 == 0 ? 'whitesmoke': 'transparent'">
-        <div class="row">
-            <div class="col-10" (click)="object.showGroupedQuestions = !object.showGroupedQuestions" style="cursor: pointer" [innerHTML]="object.key"></div>
-            <div class="col-2 text-right"><span class="badge badge-primary badge-pill"> {{object.value.length}}</span></div>
+<!-- Regular -->
+<div *ngIf="!group">
+    <ion-list>
+        <!-- Questionnaires -->
+        <div *ngFor="let question of questions">
+            <button ion-item (click)="question.showDetail = !question.showDetail; question.showAnswers = true;">
+                <div *ngIf="question.questionLabel" [innerHTML]="question.questionLabel"></div>
+                <!-- <div *ngIf="!question.questionLabel" [innerHTML]="question.question"></div> -->
+                <div *ngIf="question.question" [innerHTML]="question.question"></div>
+                <p item-end *ngIf="question.answers">
+                    <ion-badge>
+                        <small>{{question.answers.length}}</small>
+                    </ion-badge>
+                </p>
+            </button>
+            <questionSimple *ngIf="question.showDetail" [question]="question" [questionnaire]="questionnaire" [editable]="editable" (change)="changed()"></questionSimple>
         </div>
-        <div class="list-group" *ngIf="object.showGroupedQuestions">
+    </ion-list>
+</div>
+
+<!-- Grouped -->
+<div *ngIf="group">
+
+    <div *ngFor="let object of questions | groupBy:'questionLabel'">
+
+        <button ion-item (click)="object.showGroupedQuestions = !object.showGroupedQuestions">
+            <div class="col-10" (click)="object.showGroupedQuestions = !object.showGroupedQuestions" style="cursor: pointer" [innerHTML]="object.key"></div>
+
+            <p item-end>
+                <ion-badge>
+                    <small>{{object.value.length}}</small>
+                </ion-badge>
+            </p>
+        </button>
+        <ion-list *ngIf="object.showGroupedQuestions">
             <br>
-            <div *ngFor="let question of object.value" class="list-group-item">
-                <questionGroup [question]="question" [questionnaire]="questionnaire" [editable]="editable" (change)="changed()" [showAnswers]="true"></questionGroup>
+            <questionSimple *ngFor="let question of object.value" [question]="question" [questionnaire]="questionnaire" [editable]="editable"
+                (change)="changed()" [showAnswers]="true" [showLabel]="false"></questionSimple>
+            <!-- <div *ngFor="let question of object.value" class="list-group-item">
+                            <questionGroup [question]="question" [questionnaire]="questionnaire" [editable]="editable" (change)="changed()" [showAnswers]="true"></questionGroup>
+                        </div> -->
+        </ion-list>
+
+
+    </div>
+
+    <!-- <ion-list *ngFor="let object of questions | groupBy:'questionLabel'">
+        <ion-col>
+            <div class="col-10" (click)="object.showGroupedQuestions = !object.showGroupedQuestions" style="cursor: pointer" [innerHTML]="object.key"></div>
+            <div class="col-2 text-right">
+                <span class="badge badge-primary badge-pill"> {{object.value.length}}</span>
             </div>
         </div>
-    </div>
+    </ion-list> -->
 </div>

@@ -13,12 +13,12 @@ import { QuestionsComponent } from '@appSharedComponents/questions.component';
 
 export class QuestionsLocalComponent extends QuestionsComponent {
 
-
     constructor(public questionnaireService: QuestionnaireService, public miscellaneousService: MiscellaneousService){
             super(questionnaireService, miscellaneousService);
     }
 
     ngOnInit(){
+        
     }
     
 }

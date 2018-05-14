@@ -1,0 +1,48 @@
+<div>
+    <form>
+        <div class="form-group">
+            <div class="input-group">
+                <input [(ngModel)]="search" type="text" class="form-control" placeholder="{{translate('Search in questions or answers')}}" 
+                    [ngModelOptions]="{standalone: true}">
+                <button (click)="load()" type="submit" class="btn btn-secondary">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row"> <!-- Title -->
+    <div class="col-10">
+        <h3>{{translate('Search')}} 
+            <span *ngIf="questionsSearch" class="badge badge-primary badge-pill">{{questionsSearch.length}}</span> 
+        </h3>
+    </div>
+    <div class="col-2 text-right" style="cursor: pointer;">
+        <div class="dropdown">
+            <button style="background-color:transparent; border: 0" class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i  class="fa fa-ellipsis-v"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" (click)="filter('questionnaire', showDisabled)"><i class="fa fa-filter"></i> {{translate('Questionnaires only')}}</a>
+                <a class="dropdown-item" (click)="filter('test', showDisabled)"><i class="fa fa-filter"></i> {{translate('Tests only')}}</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" (click)="filter(filterType, !showDisabled)">
+                    <i *ngIf="showDisabled" class="fa fa-check"></i> {{translate('Show disabled')}}
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" (click)="filter()"><i class="fa fa-filter"></i> {{translate('No filter')}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="list-group">
+    <div class="list-group-item" *ngFor="let question of questionsSearch">
+        <h6>{{question.questionnaireTitle}}</h6>    
+        <span class="badge badge-primary badge-pill">{{question.foundType}}</span>
+        <span class="badge badge-primary badge-pill">{{question.questionnaireType}}</span>
+        <br>
+        <br>
+        <questionSimple [question]="question" [editable]="true" (change)="updateQuestion(question)"></questionSimple>
+    </div>
+</div>

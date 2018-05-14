@@ -18,6 +18,7 @@
       "@appSharedComponents/*": ["questionnaireShared/components/*"],
       "@services/*": ["services/*"],
       "@components/*": ["components/*"],
+      "@pages/*": ["pages/*"],
       "@sharedServices/*": ["angularShared/services/*"],
       "@sharedComponents/*": ["angularShared/components/*"]
     }

@@ -4,16 +4,69 @@ import { GenericComponent } from '@sharedComponents/generic.component';
 import { QuestionnaireService } from '@appSharedServices/questionnaire.service';
 import { MiscellaneousService } from '@sharedServices/miscellaneous.service';
 import { QuestionComponent } from '@appSharedComponents/question.component';
+import { AlertController } from 'ionic-angular';
 
 export class QuestionLocalComponent extends QuestionComponent {
 
-    constructor(public questionnaireService: QuestionnaireService, public miscellaneousService: MiscellaneousService){
+    constructor(public questionnaireService: QuestionnaireService, public miscellaneousService: MiscellaneousService, public alertCtrl: AlertController) {
         super(questionnaireService, miscellaneousService);
     }
 
-    ngOnInit(){
+    ngOnInit() {
     }
 
+    delete() {
+        if (this.questionnaireService.isQuestionEmpty(this.question)) {
+            super.delete();
+        } else {
+            let confirm = this.alertCtrl.create({
+                title: this.translate("Deleting a question ?"),
+                message: this.translate("Are you sure you want to delete that question ?"),
+                buttons: [
+                    {
+                        text: this.translate('No'),
+                        handler: () => {
+
+                        }
+                    },
+                    {
+                        text: this.translate('Yes'),
+                        handler: () => {
+                            super.delete();
+                        }
+                    }
+                ]
+            });
+            confirm.present();
+        }
+    }
+
+
+    deleteAnswer(answer: any) {
+        if (this.questionnaireService.isAnswerEmpty(answer)) {
+            super.deleteAnswer(answer)
+        } else {
+            let confirm = this.alertCtrl.create({
+                title: this.translate("Deleting an answer ?"),
+                message: this.translate("Are you sure you want to delete that answer ?"),
+                buttons: [
+                    {
+                        text: this.translate('No'),
+                        handler: () => {
+
+                        }
+                    },
+                    {
+                        text: this.translate('Yes'),
+                        handler: () => {
+                            super.deleteAnswer(answer);
+                        }
+                    }
+                ]
+            });
+            confirm.present();
+        }
+    }
     // deleteWithConfirmationQuestion(question: any) {
     //     if (this.questionnaireService.isQuestionEmpty(question)){
     //         this.deleteQuestion(this.questionnaire, question);
@@ -48,7 +101,7 @@ export class QuestionLocalComponent extends QuestionComponent {
     //     this.bsModalRef.content.title = this.translate("Exporting a questionnaire");
     //     this.bsModalRef.content.readOnly = false;
     //     this.bsModalRef.content.bodyMessage = this.translate("Copy the content below");;
-        
+
     //     this.bsModalRef.content.message = JSON.stringify(this.question);
     // }
 

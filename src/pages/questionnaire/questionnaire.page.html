@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{translate('Questions')}} </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+                {{translate('Close')}}
+            </button>
+        </ion-buttons>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="toggleSearch()">
+                <ion-icon name="search"></ion-icon>
+            </button>
+            <!-- <button ion-button icon-only (click)="newQuestion()">
+                <ion-icon name="add"></ion-icon>
+            </button> -->
+        </ion-buttons>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="showPopover($event)">
+                <ion-icon name="more"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <ion-searchbar *ngIf="searchBar" (ionInput)="searchInput($event)"></ion-searchbar>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content>
+        </ion-refresher-content>
+    </ion-refresher>
+    <questionnaireLocal #questionnaireLocal [questionnaire]="questionnaire" [questionnaires]="questionnaires" [showQuestions]="true"
+        (deleted)="deleted()" (filtered)="filtered()" (loaded)="loaded()"></questionnaireLocal>
+</ion-content>
+
+<ion-fab right bottom>
+    <button mini ion-fab color="secondary" (click)="newQuestion()">
+        <ion-icon name="add"></ion-icon>
+    </button>
+</ion-fab>

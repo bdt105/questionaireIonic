@@ -1,0 +1,11 @@
+<ion-list no-lines *ngIf="menus">
+    <span *ngFor="let menu of menus">
+        <ion-list-header *ngIf="menu.type =='header'">
+            <ion-icon *ngIf="menu.icon" [name]="menu.icon"></ion-icon>
+            <span *ngIf="menu.label">{{menu.label}}</span>
+        </ion-list-header>
+        <button clear *ngIf="menu.type != 'header'" ion-item (click)="click(menu.id)">
+            <ion-icon *ngIf="menu.icon" [name]="menu.icon"></ion-icon> {{menu.label}}
+        </button>
+    </span>
+</ion-list>
