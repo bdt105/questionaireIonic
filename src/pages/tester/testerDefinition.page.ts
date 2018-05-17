@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, PopoverController, ViewController, NavParams, Slides, AlertController } from 'ionic-angular';
+import { NavController, PopoverController, ViewController, NavParams, Slides, AlertController, ToastController } from 'ionic-angular';
 import { GenericPage } from '../generic.page';
 import { MiscellaneousService } from '@sharedServices/miscellaneous.service';
 import { MenuPopover } from '../../components/popover/menu.popover';
@@ -23,8 +23,8 @@ export class TesterDefinitionPage extends GenericPage {
 
     constructor(public miscellaneousService: MiscellaneousService, public navController: NavController, 
         private alertController: AlertController, public navParams: NavParams, public questionnaireService: QuestionnaireService,
-        private popoverCtrl: PopoverController, public connexionTokenService: ConnexionTokenService) {
-        super(miscellaneousService, navController, connexionTokenService);
+        private popoverCtrl: PopoverController, public connexionTokenService: ConnexionTokenService, toastController: ToastController) {
+        super(miscellaneousService, navController, connexionTokenService, toastController);
     }
 
 

@@ -28,7 +28,7 @@
     "@ionic/pro": "1.0.20",
     "@ionic/storage": "2.1.3",
     "bdt105angularconfigurationservice": "^2.0.0",
-    "bdt105angularconnexionservice": "^2.0.1",
+    "bdt105angularconnexionservice": "^2.0.14",
     "bdt105toolbox": "^1.0.87",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",

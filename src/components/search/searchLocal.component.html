@@ -1,0 +1,13 @@
+<ion-spinner *ngIf="loading" style="margin: 10px"></ion-spinner>
+<div *ngFor="let question of questionsSearch">
+    <button ion-item (click)="question.showDetail = !question.showDetail; question.showAnswers = true;">
+        <i style="margin-bottom: 5px">{{question.questionnaireTitle}}</i>
+        <br>
+        <br>
+        <ion-badge item-end (click)="goToQuestionnaire(question.questionnaireId)">{{question.questionnaireType}}</ion-badge>
+        <ion-badge item-end>{{question.foundType}}</ion-badge>
+        <div [innerHTML]="question.question"></div>
+        <div [innerHTML]="question.questionLabel"></div>
+    </button>
+    <questionSimple *ngIf="question.showDetail" [question]="question" [editable]="true" (change)="updateQuestion(question)"></questionSimple>
+</div>

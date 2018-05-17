@@ -80,6 +80,8 @@ export class QuestionLocalComponent extends QuestionComponent {
             super.newQuestionAfterQuestion(question);
         }
     }    
+
+    
     // deleteWithConfirmationQuestion(question: any) {
     //     if (this.questionnaireService.isQuestionEmpty(question)){
     //         this.deleteQuestion(this.questionnaire, question);

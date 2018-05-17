@@ -5,14 +5,13 @@
     <ion-card>
         <ion-card-header no-padding>
             <ion-item>
-                <ion-textarea [(ngModel)]="question.questionLabel" placeholder="{{translate('Question label (html allowed)')}}"></ion-textarea>
-                <!-- <ion-input type="text" [(ngModel)]="question.questionLabel" placeholder="{{translate('Question label')}}"></ion-input> -->
+                <ion-input type="text" [(ngModel)]="question.question" placeholder="{{translate('Question')}}"></ion-input>
             </ion-item>
         </ion-card-header>
 
         <ion-card-content no-padding>
             <ion-item>
-                <ion-input type="text" [(ngModel)]="question.question" placeholder="{{translate('Question')}}"></ion-input>
+                <ion-textarea [(ngModel)]="question.questionLabel" placeholder="{{translate('Question label (html allowed)')}}"></ion-textarea>
             </ion-item>
             <ion-item>
                 <ion-input type="text" [(ngModel)]="question.detail" placeholder="{{translate('Detail')}}"></ion-input>

@@ -3,25 +3,20 @@
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>{{translate('Questionnaires')}}
-            <ion-badge *ngIf="questionnaires">{{questionnaires.length}}</ion-badge>
-        </ion-title>
+        <ion-title>{{translate('Questionnaires & tests')}}</ion-title>
         <ion-buttons end>
             <button ion-button icon-only (click)="toggleSearch()">
                 <ion-icon name="search"></ion-icon>
-            </button>
-            <!-- <button ion-button icon-only (click)="refresh()">
-                <ion-icon name="refresh"></ion-icon>
-            </button> -->
-            <button ion-button icon-only (click)="showPopover($event)">
-                <ion-icon name="more"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>
 </ion-header>
 
 <!-- Questionnaires -->
-<ion-content  *ngIf="isConnected()" no-padding>
+<ion-content *ngIf="isConnected()" no-padding>
+    <ion-item (click)="showPopoverFilter($event)">
+        <ion-icon name="funnel"></ion-icon> <small>{{getFilterCaption()}}</small> <ion-badge *ngIf="questionnaires">{{questionnaires.length}}</ion-badge>
+    </ion-item>
     <ion-searchbar *ngIf="searchBar" (ionInput)="searchInput($event)"></ion-searchbar>
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content>
@@ -31,7 +26,7 @@
 </ion-content>
 
 <ion-fab right bottom>
-    <button mini ion-fab color="secondary" (click)="newQuestionnaire()">
+    <button ion-fab color="secondary" (click)="newQuestionnaire()">
         <ion-icon name="add"></ion-icon>
     </button>
 </ion-fab>

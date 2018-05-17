@@ -8,12 +8,12 @@
         </ion-title>
         <ion-buttons end>
             <button ion-button (click)="save()">
-                <ion-icon name="checkmark"></ion-icon>
+                <ion-icon name="recording"></ion-icon>
             </button>
-            <button *ngIf="indexCurrentQuestion >= 0" ion-button (click)="previous()">
+            <button *ngIf="indexCurrentQuestion > 0" ion-button (click)="previous()">
                 <ion-icon name="arrow-round-back"></ion-icon>
             </button>
-            <button *ngIf="questions && indexCurrentQuestion < questions.length" ion-button (click)="next()">
+            <button *ngIf="test.questions && indexCurrentQuestion < test.questions.length" ion-button (click)="next()">
                 <ion-icon name="arrow-round-forward"></ion-icon>
             </button>
         </ion-buttons>
@@ -27,25 +27,25 @@
         </ion-col>
         <ion-col *ngIf="score" style="text-align: center">
             <ion-badge color="success">
-                <ion-icon name="thumbs-up" item-start></ion-icon> {{score.scoreOk}}</ion-badge>
+                <ion-icon name="thumbs-up" item-start></ion-icon> {{test.score.scoreOk}}</ion-badge>
         </ion-col>
         <ion-col *ngIf="score" style="text-align: center">
             <ion-badge color="danger">
-                <ion-icon name="thumbs-down" item-start></ion-icon> {{score.scoreNok}}</ion-badge>
+                <ion-icon name="thumbs-down" item-start></ion-icon> {{test.score.scoreNok}}</ion-badge>
         </ion-col>
         <ion-col style="text-align: right">
-            <button *ngIf="questions && indexCurrentQuestion < questions.length" ion-button color="primary" (click)="next()">{{translate('Next')}}</button>
+            <button *ngIf="test.questions && indexCurrentQuestion < test.questions.length" ion-button color="primary" (click)="next()">{{translate('Next')}}</button>
         </ion-col>
     </ion-row>
 
     <ion-item>
-        <ion-range [min]="0" [max]="questions.length - 1" [(ngModel)]="indexCurrentQuestion">
+        <ion-range [min]="0" [max]="test.questions.length - 1" [(ngModel)]="indexCurrentQuestion">
             <ion-label range-left>0</ion-label>
-            <ion-label range-right>{{questions.length - 1}}</ion-label>
+            <ion-label range-right>{{test.questions.length - 1}}</ion-label>
         </ion-range>
     </ion-item>
 
-    <questionSimple [question]="questions[this.indexCurrentQuestion]" [showCustomAnswer]="true"></questionSimple>
+    <questionSimple [question]="test.questions[this.indexCurrentQuestion]" [showCustomAnswer]="true"></questionSimple>
 
 
 </ion-content>

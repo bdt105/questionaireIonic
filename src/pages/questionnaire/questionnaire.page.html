@@ -1,6 +1,6 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-title>{{translate('Questions')}} </ion-title>
+    <ion-toolbar *ngIf="isModal">
+        <ion-title>{{translate('Questions')}}</ion-title>
         <ion-buttons start>
             <button ion-button (click)="dismiss()">
                 {{translate('Close')}}
@@ -10,9 +10,6 @@
             <button ion-button icon-only (click)="toggleSearch()">
                 <ion-icon name="search"></ion-icon>
             </button>
-            <!-- <button ion-button icon-only (click)="newQuestion()">
-                <ion-icon name="add"></ion-icon>
-            </button> -->
         </ion-buttons>
         <ion-buttons end>
             <button ion-button icon-only (click)="showPopover($event)">
@@ -20,6 +17,22 @@
             </button>
         </ion-buttons>
     </ion-toolbar>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{translate('Questions')}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="toggleSearch()">
+                <ion-icon name="search"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="showPopover($event)">
+                <ion-icon name="more"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
 <ion-content no-padding>
@@ -29,11 +42,11 @@
         </ion-refresher-content>
     </ion-refresher>
     <questionnaireLocal #questionnaireLocal [questionnaire]="questionnaire" [questionnaires]="questionnaires" [showQuestions]="true"
-        (deleted)="deleted()" (filtered)="filtered()" (loaded)="loaded()"></questionnaireLocal>
+        (deleted)="deleted()" (filtered)="filtered()" (loaded)="loaded()" (saved)="saved()"></questionnaireLocal>
 </ion-content>
 
 <ion-fab right bottom>
-    <button mini ion-fab color="secondary" (click)="newQuestion()">
+    <button ion-fab color="secondary" (click)="newQuestion()">
         <ion-icon name="add"></ion-icon>
     </button>
 </ion-fab>

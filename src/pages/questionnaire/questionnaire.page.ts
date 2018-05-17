@@ -20,7 +20,9 @@ import { ConnexionTokenService } from 'bdt105angularconnexionservice';
 
 export class QuestionnairePage extends GenericPage {
 
-    refresher: any;
+    public isModal: any;
+    public id: string;
+    public refresher: any;
     public searchBar: boolean;
     public questionnaire: any;
     public questionnaires: any;
@@ -38,7 +40,7 @@ export class QuestionnairePage extends GenericPage {
         public questionnaireService: QuestionnaireService,
         public miscellaneousService: MiscellaneousService,
         public toastCtrl: ToastController, private popoverCtrl: PopoverController, public connexionTokenService: ConnexionTokenService) {
-        super(miscellaneousService, navController, connexionTokenService);
+        super(miscellaneousService, navController, connexionTokenService, toastCtrl);
     }
 
     dismiss() {
@@ -47,9 +49,14 @@ export class QuestionnairePage extends GenericPage {
 
     ngOnInit() {
         // this.questionnaireLocalComponent.__questionnaire = this.params.get("questionnaire");
-        this.questionnaire = this.params.get("questionnaire");
-        this.questionnaires = this.params.get("questionnaires");
-        this.test = this.params.get("test");
+        this.isModal = this.params.get("isModal");
+        this.id = this.params.get("id");
+        if (this.id) {
+            this.questionnaireLocalComponent.load(this.id);
+        } else {
+            this.questionnaire = this.params.get("questionnaire");
+            this.questionnaires = this.params.get("questionnaires");
+        }
     }
 
     initPopover() {
@@ -157,6 +164,15 @@ export class QuestionnairePage extends GenericPage {
         this.questionnaire = this.questionnaireLocalComponent.questionnaire;
         if (this.refresher) {
             this.refresher.complete();
+        }
+        if (this.questionnaireLocalComponent.lastError) {
+            this.toast("No data could be retrived. Local data are displayed");
+        }
+    }
+
+    saved() {
+        if (this.questionnaireLocalComponent.lastError) {
+            this.toast("No internet connexion available. No data were saved!");
         }
     }
 

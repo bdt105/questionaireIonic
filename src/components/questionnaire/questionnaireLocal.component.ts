@@ -22,8 +22,8 @@ export class QuestionnaireLocalComponent extends QuestionnaireComponent {
             super.delete();
         } else {
             let confirm = this.alertCtrl.create({
-                title: this.translate("Deleting a questionnaire ?"),
-                message: this.translate("Are you sure you want to delete that questionnaire ?"),
+                title: this.translate("Deleting a " + this.translate(this.questionnaire.type) + " ?"),
+                message: this.translate("Are you sure you want to delete that" + " " + this.translate(this.questionnaire.type) + " ?"),
                 buttons: [
                     {
                         text: this.translate('No'),

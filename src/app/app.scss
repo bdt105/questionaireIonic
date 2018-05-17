@@ -27,25 +27,30 @@
   }
 
   .question {
-    background: color($colors, light);
+    background: transparent /*color($colors, light)*/;
   }
 
-  .progress-outer {
-    width: 96%;
-    margin: 10px 2%;
-    padding: 3px;
-    text-align: center;
-    background-color: map-get($colors, primary);
-    border: 1px solid #dcdcdc;
-    color: #fff;
-    border-radius: 5px;
+.questionSimpleElement {
+  border-bottom: color($colors, lightprimary) 1px solid; 
 }
 
-.progress-inner {
-    white-space: nowrap;
-    overflow: hidden;
-    padding: 5px;
-    border-radius: 5px;
-    color: black;
-    background-color: map-get($colors, secondary);
-}  
+@media (min-width: 680px) {
+  ion-app [no-padding] .scroll-content{
+    padding: 0;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 20px;
+  }
+}
+
+@media (min-width: 680px) {
+  .webSiteOnly{
+    display: block;
+  }
+}
+
+@media (max-width: 680px) {
+  .webSiteOnly{
+    display: none;
+  }
+}

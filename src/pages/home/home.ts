@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Nav } from 'ionic-angular';
+import { NavController, Nav, ToastController } from 'ionic-angular';
 import { GenericPage } from '@pages/generic.page';
 import { MiscellaneousService } from '@sharedServices/miscellaneous.service';
 import { LoginPage } from '@pages/login/login.page';
@@ -14,8 +14,8 @@ export class HomePage extends GenericPage {
     @ViewChild(Nav) nav: Nav;
 
     constructor(public navCtrl: NavController, public miscellaneousService: MiscellaneousService, 
-        public navController: NavController, public connexionTokenService: ConnexionTokenService, nav: Nav) {
-        super(miscellaneousService, navController, connexionTokenService);
+        public navController: NavController, public connexionTokenService: ConnexionTokenService, nav: Nav, public toastCtrl: ToastController) {
+        super(miscellaneousService, navController, connexionTokenService, toastCtrl);
     }
 
     goto(page: string){

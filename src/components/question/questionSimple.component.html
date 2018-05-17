@@ -1,30 +1,47 @@
 <!-- Read only and tests -->
 <ion-card *ngIf="!canEdit()" class="question">
     <ion-card-header no-padding>
-        <div (click)="toggleAnswers()">
+        <div (click)="toggleAnswers()" class="questionSimpleElement">
             <ion-card-header text-wrap *ngIf="showLabel && question.questionLabel" [innerHTML]="question.questionLabel"></ion-card-header>
             <ion-card-header text-wrap *ngIf="question.question" [innerHTML]="question.question"></ion-card-header>
         </div>
         <div style="text-align: center">
-            <textarea *ngIf="showCustomAnswer" type="text" [(ngModel)]="question.customAnswer" style="width: 90%; border:0" placeholder="{{translate('Enter your answer here and swipe to check it.')}}"></textarea>
-            <div *ngIf="question.checked">
-                <p *ngIf="question.status">
-                    <ion-icon color="success" name="thumbs-up" style="font-size: 2em"></ion-icon>
-                    <ion-label>{{translate('The answer is correct')}}</ion-label>
-                </p>
-                <p *ngIf="!question.status">
-                    <ion-icon color="danger" name="thumbs-down" style="font-size: 2em"></ion-icon>
-                    <ion-label>{{translate('The answer is not correct, below is the right answer')}}</ion-label>
-                </p>
-            </div>
+            <ion-row *ngIf="showCustomAnswer">
+                <ion-col col-10>
+                    <textarea autofocus type="text" [(ngModel)]="question.customAnswer" style="width: 90%; border:0"
+                        placeholder="{{translate('Enter your answer here and swipe to check it.')}}"></textarea>
+                </ion-col>
+                <ion-col col-2>
+                    <ion-icon name="checkmark" (click)="checkQuestion()"></ion-icon>
+                </ion-col>
+            </ion-row>
         </div>
+        <ion-card-content *ngIf="question.checked" class="questionSimpleElement">
+            <ion-row>
+                <ion-col>
+                    <span>{{translate('Your answer')}}</span>
+                </ion-col>
+                <ion-col style="text-align: right">
+                    <ion-badge *ngIf="question.checked">
+                        <ion-icon *ngIf="question.status" color="success" name="thumbs-up"></ion-icon>
+                        <ion-icon *ngIf="!question.status" color="danger" name="thumbs-down"></ion-icon>
+                    </ion-badge>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    {{question.customAnswer}}
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
     </ion-card-header>
 
     <ion-card-content no-padding *ngIf="question.showAnswers || showAnswers">
-        <ion-card-content *ngFor="let answer of question.answers">
+        <ion-card-content *ngFor="let answer of question.answers" class="questionSimpleElement">
             <ion-row>
                 <ion-col>
-                    {{answer.answer}}
+                    <span>{{translate('Answer')}}</span>
+                    <br>
                     <div *ngIf="answer.detail" [innerHTML]="answer.detail"></div>
                 </ion-col>
                 <ion-col item-end style="text-align: right;">
@@ -32,6 +49,12 @@
                     <ion-badge item-end>{{answer.point}}</ion-badge>
                 </ion-col>
             </ion-row>
+            <ion-row>
+                <ion-col>
+                    {{answer.answer}}
+                </ion-col>
+            </ion-row>
+
         </ion-card-content>
         <button ion-button icon-left clear small (click)="toggleEdit()">
             {{translate('Edit')}}

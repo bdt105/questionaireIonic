@@ -4,7 +4,7 @@ import { QuestionnaireService } from '@appSharedServices/questionnaire.service';
 import { MiscellaneousService } from '@sharedServices/miscellaneous.service';
 
 import { QuestionnairesComponent } from '@appSharedComponents/questionnaires.component';
-import { ModalController } from 'ionic-angular';
+import { ModalController, NavController, LoadingController } from 'ionic-angular';
 import { QuestionnairePage } from '@pages/questionnaire/questionnaire.page';
 
 @Component({
@@ -19,19 +19,25 @@ export class QuestionnairesLocalComponent extends QuestionnairesComponent {
 
     @Output() selected: EventEmitter<any> = new EventEmitter<any>();
 
-    constructor(public questionnaireService: QuestionnaireService, public miscellaneousService: MiscellaneousService, public modalCtrl: ModalController){
+    constructor(public questionnaireService: QuestionnaireService, public miscellaneousService: MiscellaneousService, 
+        public modalCtrl: ModalController, public navController: NavController){
         super(questionnaireService, miscellaneousService);
     }
 
-    showModal(questionnaire: any) {
-        let modal = this.modalCtrl.create(QuestionnairePage, {"questionnaire": questionnaire, "questionnaires": this.questionnaires});
-        modal.onDidDismiss(() => {
-            this.load();
-        });            
-        modal.present();
-    }    
+    showQuestionnaire(questionnaire: any, modal: boolean = false) {
+        let params = {"questionnaire": questionnaire, "questionnaires": this.questionnaires, "isModal": modal};
+        if (modal){
+            let mod = this.modalCtrl.create(QuestionnairePage, params);
+            mod.onDidDismiss(() => {
+                this.load();
+            });            
+            mod.present();
+        }else{
+            this.navController.push(QuestionnairePage, params);
+        }
+    }
 
-
+   
 /*
     import(){
         this.bsModalRef = this.modalService.show(ConfirmationComponent);

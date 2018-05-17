@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, PopoverController, ViewController, NavParams } from 'ionic-angular';
+import { NavController, PopoverController, ViewController, NavParams, ToastController } from 'ionic-angular';
 import { GenericPage } from '../generic.page';
 import { MiscellaneousService } from '@sharedServices/miscellaneous.service';
 import { MenuPopover } from '../../components/popover/menu.popover';
@@ -22,8 +22,9 @@ export class QuestionnairesPage extends GenericPage {
 
     @ViewChild('questionnairesLocal') private questionnairesLocalComponent: QuestionnairesLocalComponent;
 
-    constructor(public miscellaneousService: MiscellaneousService, public navController: NavController, private popoverCtrl: PopoverController, public connexionTokenService: ConnexionTokenService) {
-        super(miscellaneousService, navController, connexionTokenService);
+    constructor(public miscellaneousService: MiscellaneousService, public navController: NavController,
+        private popoverCtrl: PopoverController, public connexionTokenService: ConnexionTokenService, public toastCtrl: ToastController) {
+        super(miscellaneousService, navController, connexionTokenService, toastCtrl);
     }
 
     loaded(event: any) {
@@ -33,6 +34,13 @@ export class QuestionnairesPage extends GenericPage {
         if (this.refresher) {
             this.refresher.complete();
         }
+        if (this.questionnairesLocalComponent.lastError == "DATA_FROM_LOCAL") {
+            this.toast(this.translate('No connexion possible, local data loaded.'));
+        }
+        if (this.questionnairesLocalComponent.lastError == "NO_FROM_LOCAL") {
+            this.toast(this.translate('No connexion possible and no local data loaded.'));
+        }
+        console.log(this.questionnairesLocalComponent)
     }
 
     initPopover() {
@@ -41,14 +49,10 @@ export class QuestionnairesPage extends GenericPage {
             "menus":
                 [
                     {
-                        "label": this.translate('New'),
-                        "id": "newQuestionnaire"
-                    },
-                    {
-                        "label": this.translate('Import'),
-                        "id": "import"
-                    },
-                    {
+                        "label": this.translate('Filter'),
+                        "type": "header",
+                        "icon": "funnel"
+                    }, {
                         "label": this.translate('Questionnaires'),
                         "id": "filterQuestionnaire"
                     },
@@ -57,8 +61,12 @@ export class QuestionnairesPage extends GenericPage {
                         "id": "filterTest"
                     },
                     {
-                        "label": this.translate('Disabled'),
+                        "label": this.translate('Show disabled'),
                         "id": "toggleFilterDisabled"
+                    },
+                    {
+                        "label": this.translate('All'),
+                        "id": "noFilter"
                     }
                 ]
         };
@@ -66,7 +74,7 @@ export class QuestionnairesPage extends GenericPage {
 
     public newQuestionnaire() {
         let q = this.questionnairesLocalComponent.newQuestionnaire();
-        this.questionnairesLocalComponent.showModal(q);
+        this.questionnairesLocalComponent.showQuestionnaire(q);
     }
 
     private action(action: string) {
@@ -88,6 +96,10 @@ export class QuestionnairesPage extends GenericPage {
 
             case "toggleFilterDisabled":
                 this.questionnairesLocalComponent.toggleFilterDisabled();
+                break;
+
+            case "noFilter":
+                this.questionnairesLocalComponent.toggleNoFilter();
                 break;
 
             default:
@@ -115,7 +127,7 @@ export class QuestionnairesPage extends GenericPage {
         }
     }
 
-    showPopover(ev) {
+    showPopoverFilter(ev) {
         let menu = this.initPopover();
         let popover = this.popoverCtrl.create(MenuPopover,
             menu
@@ -136,4 +148,10 @@ export class QuestionnairesPage extends GenericPage {
         this.refresh();
     }
 
+    getFilterCaption() {
+        if (this.questionnairesLocalComponent) {
+            return this.questionnairesLocalComponent.getFilterCaption();
+        }
+        return "toto";
+    }
 }

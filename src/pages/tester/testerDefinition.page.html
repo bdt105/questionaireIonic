@@ -7,10 +7,13 @@
             {{translate('Test definition')}}
         </ion-title>
         <ion-buttons end>
-            <button *ngIf="slides && slides.getActiveIndex() > 0" ion-button color="primary" (click)="previousSlide()">{{translate('Previous')}}</button>
+            <button *ngIf="slides && slides.getActiveIndex() > 0" ion-button color="primary" (click)="previousSlide()"><ion-icon name="arrow-back"></ion-icon></button>
         </ion-buttons>
         <ion-buttons end>
-            <button *ngIf="slides && slides.getActiveIndex() <= 0" ion-button color="primary" (click)="nextSlide()">{{translate('Next')}}</button>
+            <button *ngIf="slides && slides.getActiveIndex() > 0" ion-button color="primary" (click)="start()">{{translate('Go')}}</button>
+        </ion-buttons>
+        <ion-buttons end>
+            <button *ngIf="slides && slides.getActiveIndex() <= 0" ion-button color="primary" (click)="nextSlide()"><ion-icon name="arrow-forward"></ion-icon></button>
         </ion-buttons>
     </ion-navbar>
 </ion-header>
@@ -18,48 +21,48 @@
 <ion-slides *ngIf="testOptions" pager #definition (ionSlideDidChange)="slideChanged()">
     <ion-slide>
 
-        <h2>{{translate('Choose your questionnaires')}}</h2>
+        <h3>{{translate('Choose your questionnaires')}}</h3>
         <ion-item>
-            <ion-label floating>{{translate('Title of the test')}}</ion-label>
-            <ion-input type="text" [(ngModel)]="testOptions.title"></ion-input>
+            <ion-input type="text" placeholder="{{translate('Title of the test')}}" [(ngModel)]="testOptions.title"></ion-input>
         </ion-item>
-
-        <questionnairesLocal #questionnaires [test]="true"></questionnairesLocal>
+        <ion-content style="height: 450px;">
+            <questionnairesLocal #questionnaires [test]="true"></questionnairesLocal>
+        </ion-content>
     </ion-slide>
 
     <ion-slide>
-        <h2>{{translate('Choose your options')}}</h2>
+        <h3>{{translate('Choose your options')}}</h3>
         <ion-item>
             <ion-label floating>{{translate('Number of questions to ask (empty means the whole questionnaires)')}}</ion-label>
             <ion-input type="number" [(ngModel)]="testOptions.nbQuestions"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label>
-                <h2>{{translate('Random questions')}}</h2>
+                <h3>{{translate('Random questions')}}</h3>
             </ion-label>
             <ion-toggle [(ngModel)]="testOptions.randomQuestions"></ion-toggle>
         </ion-item>
         <ion-item>
             <ion-label>
-                <h2>{{translate('Next question if correct')}}</h2>
+                <h3>{{translate('Next question if correct')}}</h3>
             </ion-label>
             <ion-toggle [(ngModel)]="testOptions.nextIfCorrect"></ion-toggle>
         </ion-item>
         <ion-item>
             <ion-label>
-                <h2>{{translate('Jeopardy mode')}}</h2>
+                <h3>{{translate('Jeopardy mode')}}</h3>
             </ion-label>
             <ion-toggle [(ngModel)]="testOptions.jeopardy"></ion-toggle>
         </ion-item>
         <ion-item>
             <ion-label>
-                <h2>{{translate('Exact matching')}}</h2>
+                <h3>{{translate('Exact matching')}}</h3>
             </ion-label>
             <ion-toggle [(ngModel)]="testOptions.exactMatching"></ion-toggle>
         </ion-item>
         <ion-item>
             <ion-label>
-                <h2>{{translate('Favorite questions only')}}</h2>
+                <h3>{{translate('Favorite questions only')}}</h3>
             </ion-label>
             <ion-toggle [(ngModel)]="testOptions.favoriteOnly"></ion-toggle>
         </ion-item>

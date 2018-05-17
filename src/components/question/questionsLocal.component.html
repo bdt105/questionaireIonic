@@ -11,6 +11,12 @@
                     <ion-badge>
                         <small>{{question.answers.length}}</small>
                     </ion-badge>
+                    <ion-badge *ngIf="question.checked && question.status">
+                        <ion-icon color="success" name="thumbs-up"></ion-icon>
+                    </ion-badge>
+                    <ion-badge *ngIf="question.checked && !question.status">
+                        <ion-icon color="danger" name="thumbs-down"></ion-icon>
+                    </ion-badge>
                 </p>
             </button>
             <questionSimple *ngIf="question.showDetail" [question]="question" [questionnaire]="questionnaire" [editable]="editable" (change)="changed()"></questionSimple>

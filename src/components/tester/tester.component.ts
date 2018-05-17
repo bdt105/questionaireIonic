@@ -4,12 +4,6 @@ import { GenericComponent } from '@sharedComponents/generic.component';
 import { QuestionnaireService } from '@appSharedServices/questionnaire.service';
 import { MiscellaneousService } from '@sharedServices/miscellaneous.service';
 
-@Component({
-    selector: 'tester',
-    templateUrl: './tester.component.html',
-    providers: []
-})
-
 export class TesterComponent extends GenericComponent {
 
 
@@ -42,18 +36,8 @@ export class TesterComponent extends GenericComponent {
         this.test.edit = false;
         this.filterType = "questionnaire";
         this.showDisabled = false;
-        // this.activatedRoute.params.subscribe(params => {
-        //     this.getParams();
-        // });       
         this.load();
     }
-
-    // getParams (){
-    //     if (this.activatedRoute.snapshot.params["id"]){
-    //         this.id = this.activatedRoute.snapshot.params["id"];
-    //         this.load();
-    //     }
-    // }
 
     private successLoadQuestionnaires(data: any){
         this.questionnaires = data;
@@ -112,8 +96,11 @@ export class TesterComponent extends GenericComponent {
     }
 
     private saveTest(){
-        let fake = (data: any) => {}
+        let fake = (data: any) => {};
         this.test.endDate = this.toolbox.dateToDbString(new Date());
+        if (!this.test.title){
+            this.test.title = this.translate("Test of") + " " + this.test.endDate;
+        }
         this.questionnaireService.saveQuestionnaire(fake, fake, this.test);
     }
 
@@ -160,4 +147,7 @@ export class TesterComponent extends GenericComponent {
         }
         this.checkQuestion(this.test.questions[this.test.currentQuestionIndex], this.test.questions[this.test.currentQuestionIndex].customAnswer)        
     }
+
+
+
 }

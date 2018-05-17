@@ -9,7 +9,7 @@
         <ion-list>
             <div *ngFor="let p of pages" >
                 <button *ngIf="p.title != '-'" menuClose ion-item  (click)="openPage(p)">
-                    {{p.title}}
+                    <ion-icon name="{{p.icon}}"></ion-icon> {{p.title}}
                 </button>
             </div>
         </ion-list>

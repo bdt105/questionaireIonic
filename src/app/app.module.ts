@@ -19,9 +19,10 @@ import { QuestionEditComponent } from '@components/question/questionEdit.compone
 import { QuestionsLocalComponent } from '@components/question/questionsLocal.component';
 import { QuestionCheckComponent } from '@components/question/questionCheck.component';
 import { QuestionnaireLocalComponent } from '@components/questionnaire/questionnaireLocal.component';
-import { SearchComponent } from '@components/search/search.component';
+import { SearchComponent } from '@appSharedComponents/search.component';
 import { MenuPopover} from '@components/popover/menu.popover';
 import { ProgressBarComponent} from '@sharedComponents/progressBar.component';
+import { SearchLocalComponent } from '@components/search/searchLocal.component'
 
 // Pages
 import { GenericPage } from '@pages/generic.page';
@@ -30,6 +31,7 @@ import { QuestionnairesPage} from '@pages/questionnaire/questionnaires.page';
 import { QuestionnairePage } from '@pages/questionnaire/questionnaire.page';
 import { TesterDefinitionPage } from '@pages/tester/testerDefinition.page';
 import { TesterPage } from '@pages/tester/tester.page';
+import { SearchPage } from '@pages/search/search.page';
 
 // Custom services
 import { MenuService } from '@sharedServices/menu.service';
@@ -67,7 +69,9 @@ export function init(configurationService: ConfigurationService) {
         MenuPopover,
         TesterDefinitionPage,
         ProgressBarComponent,
-        TesterPage
+        TesterPage,
+        SearchPage,
+        SearchLocalComponent
     ],
     imports: [
         BrowserModule,
@@ -87,7 +91,9 @@ export function init(configurationService: ConfigurationService) {
         QuestionnairePage,
         TesterDefinitionPage,
         ProgressBarComponent,
-        TesterPage
+        TesterPage,
+        SearchPage,
+        SearchLocalComponent
     ],
     providers: [
         StatusBar,

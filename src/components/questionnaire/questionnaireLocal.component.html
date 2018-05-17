@@ -1,7 +1,8 @@
-<div  *ngIf="questionnaire">
+<div *ngIf="questionnaire">
     <h1 style="margin-left: 10px">
         {{questionnaire.title}}
         <ion-badge *ngIf="questionnaire.questions">{{questionnaire.questions.length}}</ion-badge>
+
     </h1>
     <div *ngIf="questionnaire.edit">
         <ion-item>
@@ -12,12 +13,19 @@
             <ion-label>{{translate('Disabled')}}</ion-label>
             <ion-toggle [(ngModel)]="questionnaire.disabled" (change)="save()"></ion-toggle>
         </ion-item>
+    </div>
+    <div *ngIf="questionnaire.type == 'test'">
+        <ion-item>
+            <ion-badge *ngIf="questionnaire.score">
+                <ion-icon color="success" name="thumbs-up" style="font-size: 2em"></ion-icon>
+                {{questionnaire.score.scoreOk}}
+            </ion-badge>
+            <ion-badge *ngIf="questionnaire.score">
+                <ion-icon color="danger" name="thumbs-down" style="font-size: 2em"></ion-icon>
+                {{questionnaire.score.scoreNok}}
+            </ion-badge>
+        </ion-item>
 
-        <!-- <input type="text" class="form-control" placeholder="{{translate('Questionnaire name')}}" 
-            [(ngModel)]="questionnaire.title" name="title" (change)="save()">
-        <br>
-        <input type="checkbox" id="defaultCheck1" [(ngModel)]="questionnaire.disabled" name="disabled" (change)="save()"> {{translate('Disable this questionnaire')}}
-        <br> -->
     </div>
 
     <questionsLocal [questions]="questionnaire.questions" [questionnaire]="questionnaire" [editable]="true" (change)="save()"
