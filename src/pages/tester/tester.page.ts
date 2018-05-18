@@ -20,7 +20,6 @@ export class TesterPage extends GenericPage {
     public testOptions: any = {};
     public questionnaires: any = {};
     public test: any;
-    public indexCurrentQuestion = 0;
     public pourcentage = 0;
 
     public numbers = [0, 1, 2];
@@ -41,20 +40,19 @@ export class TesterPage extends GenericPage {
         this.test.questions = this.questionnaireService.generateQuestions(
             this.questionnaires, this.testOptions.randomQuestions, this.testOptions.jeopardy,
             this.testOptions.nbQuestions, this.testOptions.favoriteOnly);
-        this.indexCurrentQuestion = 0;
+        this.test.indexCurrentQuestion = 0;
     }
 
     updatePourcentage() {
-        this.test.pourcentage = Math.round(this.indexCurrentQuestion / (this.test.questions.length - 1) * 100);
+        this.test.pourcentage = Math.round(this.test.indexCurrentQuestion / (this.test.questions.length - 1) * 100);
     }
 
     next() {
-        let q = this.test.questions[this.indexCurrentQuestion];
+        let q = this.test.questions[this.test.indexCurrentQuestion];
         this.checkQuestion(q);
         if (q.checked && (q.status || q.acknowleged)) {
-            this.indexCurrentQuestion++;
+            this.test.indexCurrentQuestion++;
             this.updatePourcentage();
-            
         }
         q.acknowleged = true;
         if (!q.status){
@@ -63,13 +61,30 @@ export class TesterPage extends GenericPage {
     }
 
     previous() {
-        this.indexCurrentQuestion--;
+        this.test.indexCurrentQuestion--;
         this.updatePourcentage();
+    }
+
+
+    dateStringDbToDate(date: string){
+        if (date){
+            let d1 = new Date(parseInt(date.substr(0, 4)),
+            parseInt(date.substr(5, 2)) - 1, parseInt(date.substr(8, 2)), parseInt(date.substr(11, 2)), 
+            parseInt(date.substr(14, 2)), parseInt(date.substr(17, 2)));
+            return d1;
+        }else{
+            return null;
+        }
     }
 
     checkQuestion(question: any) {
         this.questionnaireService.checkQuestion(question, question.customAnswer, false);
         this.test.score = this.questionnaireService.getScore(this.test.questions);
+        this.toolbox.dateDbToStringFr
+        let d1 = this.dateStringDbToDate(this.test.modificationDate).getTime();
+        let d2 = this.dateStringDbToDate(this.test.creationDate).getTime();
+        let diff = d1 - d2;
+        this.test.duration = {"milliseconds": diff, "hour": Math.trunc(diff / 1000 / 60 / 24), "minutes": Math.trunc(diff / 1000 / 60), "seconds": Math.trunc(diff / 1000)};
     }
 
     private successSave(data: any){

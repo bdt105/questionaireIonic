@@ -5,6 +5,7 @@
         </button>
         <ion-title>{{translate('Questionnaires & tests')}}</ion-title>
         <ion-buttons end>
+            <menuNavBar></menuNavBar>
             <button ion-button icon-only (click)="toggleSearch()">
                 <ion-icon name="search"></ion-icon>
             </button>
@@ -13,9 +14,11 @@
 </ion-header>
 
 <!-- Questionnaires -->
-<ion-content *ngIf="isConnected()" no-padding>
+<ion-content *ngIf="isConnected()">
     <ion-item (click)="showPopoverFilter($event)">
-        <ion-icon name="funnel"></ion-icon> <small>{{getFilterCaption()}}</small> <ion-badge *ngIf="questionnaires">{{questionnaires.length}}</ion-badge>
+        <ion-icon name="funnel"></ion-icon>
+        <small>{{getFilterCaption()}}</small>
+        <ion-badge *ngIf="questionnaires">{{questionnaires.length}}</ion-badge>
     </ion-item>
     <ion-searchbar *ngIf="searchBar" (ionInput)="searchInput($event)"></ion-searchbar>
     <ion-refresher (ionRefresh)="doRefresh($event)">

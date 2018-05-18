@@ -1,0 +1,5 @@
+<span class="webSiteOnly">
+    <button *ngFor="let p of pages" ion-button clear (click)="openPage(p)">
+        <ion-icon name="{{p.icon}}"></ion-icon>&nbsp;{{p.title}}
+    </button>
+</span>

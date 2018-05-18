@@ -4,16 +4,19 @@
             <ion-icon name="menu"></ion-icon>
         </button>
         <ion-title>
-            {{translate('Test') + ' ' + (questions ? indexCurrentQuestion + '/' + (questions.length - 1) : '')}}
+            {{translate('Test')}}
+            <span *ngIf="test.indexCurrentQuestion < test.questions.length">{{(test.questions ? (test.indexCurrentQuestion + 1) + '/' + (test.questions.length) : '')}}</span>
+            <span *ngIf="test.indexCurrentQuestion >= test.questions.length">{{translate('finished')}}</span>
         </ion-title>
         <ion-buttons end>
+            <menuNavBar></menuNavBar>
             <button ion-button (click)="save()">
                 <ion-icon name="recording"></ion-icon>
             </button>
-            <button *ngIf="indexCurrentQuestion > 0" ion-button (click)="previous()">
+            <button *ngIf="test.indexCurrentQuestion > 0" ion-button (click)="previous()">
                 <ion-icon name="arrow-round-back"></ion-icon>
             </button>
-            <button *ngIf="test.questions && indexCurrentQuestion < test.questions.length" ion-button (click)="next()">
+            <button *ngIf="test.questions && test.indexCurrentQuestion < test.questions.length" ion-button (click)="next()">
                 <ion-icon name="arrow-round-forward"></ion-icon>
             </button>
         </ion-buttons>
@@ -23,29 +26,53 @@
 <ion-content padding>
     <ion-row>
         <ion-col>
-            <button *ngIf="indexCurrentQuestion > 0" ion-button color="primary" (click)="previous()">{{translate('Previous')}}</button>
+            <button *ngIf="test.indexCurrentQuestion > 0" ion-button color="primary" (click)="previous()">{{translate('Previous')}}</button>
         </ion-col>
-        <ion-col *ngIf="score" style="text-align: center">
+        <ion-col *ngIf="test.score && test.indexCurrentQuestion < test.questions.length" style="text-align: center">
             <ion-badge color="success">
-                <ion-icon name="thumbs-up" item-start></ion-icon> {{test.score.scoreOk}}</ion-badge>
-        </ion-col>
-        <ion-col *ngIf="score" style="text-align: center">
+                <ion-icon name="thumbs-up" item-start></ion-icon> {{test.score.scoreOk}}
+            </ion-badge>
             <ion-badge color="danger">
-                <ion-icon name="thumbs-down" item-start></ion-icon> {{test.score.scoreNok}}</ion-badge>
+                <ion-icon name="thumbs-down" item-start></ion-icon> {{test.score.scoreNok}}
+            </ion-badge>
         </ion-col>
         <ion-col style="text-align: right">
-            <button *ngIf="test.questions && indexCurrentQuestion < test.questions.length" ion-button color="primary" (click)="next()">{{translate('Next')}}</button>
+            <button *ngIf="test.questions && test.indexCurrentQuestion < test.questions.length" ion-button color="primary" (click)="next()">{{translate('Next')}}</button>
         </ion-col>
     </ion-row>
 
-    <ion-item>
-        <ion-range [min]="0" [max]="test.questions.length - 1" [(ngModel)]="indexCurrentQuestion">
-            <ion-label range-left>0</ion-label>
-            <ion-label range-right>{{test.questions.length - 1}}</ion-label>
+    <ion-item *ngIf="test.indexCurrentQuestion < test.questions.length">
+        <ion-range [min]="1" [max]="test.questions.length" [(ngModel)]="test.indexCurrentQuestion">
+            <ion-label range-left>1</ion-label>
+            <ion-label range-right>{{test.questions.length}}</ion-label>
         </ion-range>
     </ion-item>
+    <ion-item *ngIf="test.indexCurrentQuestion >= test.questions.length">
+        <ion-item>
+            <h1 style="padding: 20px">{{translate('Test finished')}}</h1>
+        </ion-item>
+        <h2 style="padding: 20px">{{translate('Number of questions')}}
+            <ion-badge>{{test.questions.length}}</ion-badge>
+        </h2>
+        <h2 style="padding: 20px">{{translate('Score')}}
+            <ion-badge color="success">
+                <ion-icon name="thumbs-up" item-start style="font-size: 2em"></ion-icon> {{test.score.scoreOk}}</ion-badge>
+            <ion-badge color="danger">
+                <ion-icon name="thumbs-down" item-start style="font-size: 2em"></ion-icon> {{test.score.scoreNok}}</ion-badge>
+        </h2>
+        <h2 style="padding: 20px">{{translate('Test started')}}
+            <ion-badge>{{test.creationDate}}</ion-badge>
+        </h2>
+        <h2 style="padding: 20px">{{translate('Test ended')}}
+            <ion-badge>{{test.modificationDate}}</ion-badge>
+        </h2>
+        <h2 style="padding: 20px">{{translate('Duration of the test (min)')}}
+            <ion-badge>{{test.duration.minutes}}</ion-badge>
+        </h2>
 
-    <questionSimple [question]="test.questions[this.indexCurrentQuestion]" [showCustomAnswer]="true"></questionSimple>
+    </ion-item>
+
+    <questionSimple [questionnaire]="test" [question]="test.questions[this.test.indexCurrentQuestion]" [showCustomAnswer]="true"></questionSimple>
 
 
 </ion-content>

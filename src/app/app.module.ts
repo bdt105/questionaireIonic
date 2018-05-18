@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule, APP_INITIALIZER } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { HttpModule } from '@angular/http'
+import { HttpClientModule } from '@angular/common/http'; 
+import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '@pages/home/home';
@@ -17,10 +18,10 @@ import { QuestionSimpleComponent } from '@components/question/questionSimple.com
 import { QuestionGroupComponent } from '@components/question/questionGroup.component';
 import { QuestionEditComponent } from '@components/question/questionEdit.component';
 import { QuestionsLocalComponent } from '@components/question/questionsLocal.component';
-import { QuestionCheckComponent } from '@components/question/questionCheck.component';
 import { QuestionnaireLocalComponent } from '@components/questionnaire/questionnaireLocal.component';
 import { SearchComponent } from '@appSharedComponents/search.component';
 import { MenuPopover} from '@components/popover/menu.popover';
+import { MenuNavbar} from '@components/menu/menu.navbar';
 import { ProgressBarComponent} from '@sharedComponents/progressBar.component';
 import { SearchLocalComponent } from '@components/search/searchLocal.component'
 
@@ -34,7 +35,6 @@ import { TesterPage } from '@pages/tester/tester.page';
 import { SearchPage } from '@pages/search/search.page';
 
 // Custom services
-import { MenuService } from '@sharedServices/menu.service';
 import { ConfigurationService } from 'bdt105angularconfigurationservice';
 import { ConnexionTokenService } from 'bdt105angularconnexionservice';
 import { AuthGuard } from '@sharedServices/auth.guard';
@@ -42,6 +42,7 @@ import { QuestionnaireService } from '@appSharedServices/questionnaire.service';
 import { GroupByPipe } from '@sharedServices/groupBy.pipe';
 import { SafePipe } from '@sharedServices/safe.pipe';
 import { MiscellaneousService } from '@sharedServices/miscellaneous.service';
+import { MenuLocalService } from '@services/menu.service';
 
 export function init(configurationService: ConfigurationService) {
     return () => {
@@ -67,6 +68,7 @@ export function init(configurationService: ConfigurationService) {
         LoginPage,
         QuestionnairesPage,
         MenuPopover,
+        MenuNavbar,
         TesterDefinitionPage,
         ProgressBarComponent,
         TesterPage,
@@ -76,7 +78,8 @@ export function init(configurationService: ConfigurationService) {
     imports: [
         BrowserModule,
         IonicModule.forRoot(MyApp),
-        HttpModule
+        HttpModule,
+        HttpClientModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -88,6 +91,7 @@ export function init(configurationService: ConfigurationService) {
         LoginPage,
         QuestionnairesPage,
         MenuPopover,
+        MenuNavbar,
         QuestionnairePage,
         TesterDefinitionPage,
         ProgressBarComponent,
@@ -99,7 +103,7 @@ export function init(configurationService: ConfigurationService) {
         StatusBar,
         SplashScreen,
         QuestionnaireService,
-        AuthGuard, MenuService, ConfigurationService, MiscellaneousService, 
+        AuthGuard, MenuLocalService, ConfigurationService, MiscellaneousService, 
         ConnexionTokenService, 
         {
             "provide": ErrorHandler, 

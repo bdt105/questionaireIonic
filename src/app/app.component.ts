@@ -10,6 +10,7 @@ import { LoginPage } from '@pages/login/login.page';
 import { TesterDefinitionPage } from '@pages/tester/testerDefinition.page';
 import { MiscellaneousService } from '@sharedServices/miscellaneous.service';
 import { SearchPage } from '@pages/search/search.page';
+import { MenuLocalService } from '@services/menu.service';
 
 @Component({
     templateUrl: 'app.html'
@@ -22,19 +23,11 @@ export class MyApp {
     pages: Array<{ title: string, component: any, icon: string }>;
 
     constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
-        public miscellaneousService: MiscellaneousService) {
+        public miscellaneousService: MiscellaneousService, public menuLocalService: MenuLocalService) {
         this.initializeApp();
 
-
         // used for an example of ngFor and navigation
-        this.pages = [
-            { title: this.translate('Home'), component: HomePage, icon: "home" },
-            { title: this.translate('Login'), component: LoginPage, icon: "person" },
-            { title: this.translate('Test'), component: TesterDefinitionPage, icon: "checkmark-circle" },
-            { title: this.translate('Questionnaires & tests'), component: QuestionnairesPage, icon: "help" },
-            { title: this.translate('Search'), component: SearchPage, icon: "search" }
-        ];
-
+        this.pages = this.menuLocalService.pages;
     }
 
     translate(text: string) {
@@ -59,4 +52,6 @@ export class MyApp {
         // we wouldn't want the back button to show in this scenario
         this.nav.setRoot(page.component);
     }
+
+
 }

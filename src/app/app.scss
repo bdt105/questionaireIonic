@@ -16,41 +16,44 @@
 // automatically applied to the <body> element in the app.
 
 @media (min-width: 680px) {
-    .modal-wrapper {  
-       width: 90%; 
-       height: 90%; 
-       top: 5%; 
-       left: 5%; 
-       right: 5%; 
-       bottom: 5%;
-    }
+  .modal-wrapper {  
+      width: 90%; 
+      height: 90%; 
+      top: 5%; 
+      left: 5%; 
+      right: 5%; 
+      bottom: 5%;
   }
-
-  .question {
-    background: transparent /*color($colors, light)*/;
-  }
-
-.questionSimpleElement {
-  border-bottom: color($colors, lightprimary) 1px solid; 
 }
 
-@media (min-width: 680px) {
-  ion-app [no-padding] .scroll-content{
-    padding: 0;
-        padding-left: 50px;
-        padding-right: 50px;
-        padding-top: 20px;
-  }
+.question {
+  background: color($colors, primaryLight);
+}
+
+.questionSimpleElement {
+  border-bottom: color($colors, primary) 1px solid; 
 }
 
 @media (min-width: 680px) {
   .webSiteOnly{
-    display: block;
+    display: inline;
   }
 }
 
 @media (max-width: 680px) {
   .webSiteOnly{
     display: none;
+  }
+}
+
+@media (min-width: 680px) {
+  .mobileOnly{
+    display: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .mobileOnly{
+    display: inline;
   }
 }

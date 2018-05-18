@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, PopoverController, ViewController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, PopoverController, ViewController, NavParams, ToastController, App } from 'ionic-angular';
 import { GenericPage } from '../generic.page';
 import { MiscellaneousService } from '@sharedServices/miscellaneous.service';
 import { MenuPopover } from '../../components/popover/menu.popover';
@@ -22,7 +22,7 @@ export class QuestionnairesPage extends GenericPage {
 
     @ViewChild('questionnairesLocal') private questionnairesLocalComponent: QuestionnairesLocalComponent;
 
-    constructor(public miscellaneousService: MiscellaneousService, public navController: NavController,
+    constructor(public miscellaneousService: MiscellaneousService, public navController: NavController, public app: App,
         private popoverCtrl: PopoverController, public connexionTokenService: ConnexionTokenService, public toastCtrl: ToastController) {
         super(miscellaneousService, navController, connexionTokenService, toastCtrl);
     }
@@ -154,4 +154,8 @@ export class QuestionnairesPage extends GenericPage {
         }
         return "toto";
     }
+
+    menuBarClick(page: any){
+        this.app.getRootNav().setRoot(page.component);
+    }    
 }
