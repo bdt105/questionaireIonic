@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule, APP_INITIALIZER } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { HttpClientModule } from '@angular/common/http'; 
 import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
@@ -78,8 +77,7 @@ export function init(configurationService: ConfigurationService) {
     imports: [
         BrowserModule,
         IonicModule.forRoot(MyApp),
-        HttpModule,
-        HttpClientModule
+        HttpModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
