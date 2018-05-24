@@ -13,7 +13,8 @@ import { AlertController } from 'ionic-angular';
 
 export class QuestionnaireLocalComponent extends QuestionnaireComponent {
 
-    constructor(public questionnaireService: QuestionnaireService, public miscellaneousService: MiscellaneousService, public alertCtrl: AlertController) {
+    constructor(public questionnaireService: QuestionnaireService, public miscellaneousService: MiscellaneousService, 
+        public alertCtrl: AlertController) {
         super(questionnaireService, miscellaneousService);
     }
 
@@ -41,6 +42,10 @@ export class QuestionnaireLocalComponent extends QuestionnaireComponent {
             });
             confirm.present();
         }
+    }
+
+    copyToClipboard(){
+        //this.clipboard.copy(JSON.stringify(this.questionnaire));
     }
 
     // deleteWithConfirmation() {

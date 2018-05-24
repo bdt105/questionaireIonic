@@ -19,10 +19,16 @@
                 <ion-col col-11>
                     <textarea *ngIf="question.type == 'text' || !question.type" autofocus type="text" [(ngModel)]="question.customAnswer" style="width: 90%; border:0"
                         placeholder="{{translate('Enter your answer here and swipe to check it.')}}"></textarea>
-                    <ion-list *ngIf="question.type == 'radioButton'" radio-group [(ngModel)]="question.customAnswer">
+                    <ion-list radio-group *ngIf="question.type == 'radioButton'" [(ngModel)]="question.customAnswer">
                         <ion-item *ngFor="let answer of question.answers">
                             <ion-label>{{answer.answer}}</ion-label>
-                            <ion-radio value="{{answer.answer}}" (click)="change()"></ion-radio>
+                            <ion-radio *ngIf="question.type == 'radioButton'" value="{{answer.answer}}" (click)="change()"></ion-radio>
+                        </ion-item>
+                    </ion-list>
+                    <ion-list *ngIf="question.type == 'checkBox'">
+                        <ion-item *ngFor="let answer of question.answers; let i = index">
+                            <ion-label>{{answer.answer}}</ion-label>
+                            <ion-checkbox *ngIf="question.type == 'checkBox'" [(ngModel)]="answer.checked" (click)="clickCheckBox(answer); change()"></ion-checkbox>
                         </ion-item>
                     </ion-list>
                 </ion-col>
@@ -49,27 +55,45 @@
     </ion-card-header>
 
     <ion-card-content no-padding *ngIf="question.showAnswers || showAnswers">
-        <ion-card-content *ngFor="let answer of question.answers" class="questionSimpleElement">
-            <ion-row>
-                <ion-col col-11>
-                    <span>{{translate('Answer')}}</span>
-                    <br>
-                    <div *ngIf="answer.detail" [innerHTML]="answer.detail"></div>
-                </ion-col>
-                <ion-col col-1 item-end style="text-align: right;">
-                    <ion-badge item-end>{{answer.correctDistance}}</ion-badge>
-                    <ion-badge item-end>{{answer.point}}</ion-badge>
-                    <ion-icon *ngIf="answer.correct" color="success" name="thumbs-up"></ion-icon>
-                    <ion-icon *ngIf="!answer.correct" color="danger" name="thumbs-down"></ion-icon>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    {{answer.answer}}
-                </ion-col>
-            </ion-row>
+        <!-- Text -->
+        <div *ngIf="question.type=='text' || !question.type">
+            <ion-card-content *ngFor="let answer of question.answers; let i=index">
+                <ion-row *ngIf="i == 0">
+                    <ion-col col-11>
+                        <span>{{translate('Answers')}}</span>
+                        <br>
+                        <div *ngIf="answer.detail" [innerHTML]="answer.detail"></div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col *ngIf="question.type=='text' || !question.type">
+                        {{answer.answer}}
+                    </ion-col>
+                    <ion-col col-1 item-end style="text-align: right;">
+                        <ion-badge item-end>{{answer.correctDistance}}</ion-badge>
+                        <ion-badge item-end>{{answer.point}}</ion-badge>
+                    </ion-col>
+                </ion-row>
+            </ion-card-content>
+        </div>
 
-        </ion-card-content>
+        <!-- Radio button & checkbox -->
+        <div *ngIf="question.type=='radioButton' || question.type=='checkBox'">
+            <ion-card-content>
+                <ion-list radio-group>
+                    <ion-list-header>
+                        {{translate('Answers')}}
+                    </ion-list-header>
+                    <ion-item *ngFor="let answer of question.answers; let i=index">
+                        <ion-label>{{answer.answer}}</ion-label>
+                        <ion-radio *ngIf="question.type=='radioButton'" [checked]="answer.correct" disabled></ion-radio>
+                        <ion-checkbox *ngIf="question.type=='checkBox'" [checked]="answer.correct" disabled></ion-checkbox>
+                        <br>
+                        <div *ngIf="answer.detail" [innerHTML]="answer.detail"></div>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </div>
         <button ion-button icon-left clear small (click)="toggleEdit()">
             {{translate('Edit')}}
         </button>

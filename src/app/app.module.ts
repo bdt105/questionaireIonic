@@ -102,7 +102,7 @@ export function init(configurationService: ConfigurationService) {
         SplashScreen,
         QuestionnaireService,
         AuthGuard, MenuLocalService, ConfigurationService, MiscellaneousService, 
-        ConnexionTokenService, 
+        ConnexionTokenService,
         {
             "provide": ErrorHandler, 
             "useClass": IonicErrorHandler

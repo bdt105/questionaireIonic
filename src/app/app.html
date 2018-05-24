@@ -7,7 +7,7 @@
 
     <ion-content *ngIf="isConnected()">
         <ion-list>
-            <div *ngFor="let p of pages" >
+            <div *ngFor="let p of pages">
                 <button *ngIf="p.title != '-'" menuClose ion-item  (click)="openPage(p)">
                     <ion-icon name="{{p.icon}}"></ion-icon> {{p.title}}
                 </button>

@@ -29,6 +29,6 @@
     </div>
 
     <questionsLocal [questions]="questionnaire.questions" [questionnaire]="questionnaire" [editable]="true" (change)="save()"
-        [group]="questionnaire.showGroup" [favoriteOnly]="questionnaire.favoriteQuestions">
+        [group]="questionnaire.showGroup" [favoriteOnly]="questionnaire.favoriteQuestions" (filtered)="filtered()">
     </questionsLocal>
 </div>

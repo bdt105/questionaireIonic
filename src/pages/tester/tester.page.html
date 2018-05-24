@@ -54,7 +54,7 @@
         <h2 style="padding: 20px">{{translate('Number of questions')}}
             <ion-badge>{{test.questions.length}}</ion-badge>
         </h2>
-        <h2 style="padding: 20px">{{translate('Score')}}
+        <h2 style="padding: 20px" *ngIf="test.score">{{translate('Score')}}
             <ion-badge color="success">
                 <ion-icon name="thumbs-up" item-start style="font-size: 2em"></ion-icon> {{test.score.scoreOk}}</ion-badge>
             <ion-badge color="danger">
@@ -67,7 +67,7 @@
             <ion-badge>{{test.modificationDate}}</ion-badge>
         </h2>
         <h2 style="padding: 20px">{{translate('Duration of the test (min)')}}
-            <ion-badge>{{test.duration.minutes}}</ion-badge>
+            <ion-badge *ngIf="test.duration">{{test.duration.minutes}}</ion-badge>
         </h2>
 
     </ion-item>

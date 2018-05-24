@@ -48,7 +48,6 @@ export class QuestionnairePage extends GenericPage {
     }
 
     ngOnInit() {
-        // this.questionnaireLocalComponent.__questionnaire = this.params.get("questionnaire");
         this.isModal = this.params.get("isModal");
         this.id = this.params.get("id");
         if (this.id) {
@@ -70,15 +69,15 @@ export class QuestionnairePage extends GenericPage {
                     {
                         "label": this.translate('Group'),
                         "id": "group"
-                    },
+                    }/*,
                     {
                         "label": this.translate('Edit'),
                         "id": "edit"
                     },
                     {
-                        "label": this.translate('Import'),
-                        "id": "import"
-                    },
+                        "label": this.translate('To clipboard'),
+                        "id": "clipboard"
+                    }*/,
                     {
                         "label": this.translate('Delete'),
                         "id": "delete"
@@ -90,7 +89,7 @@ export class QuestionnairePage extends GenericPage {
     private action(action: string) {
         switch (action) {
             case "favorites":
-                this.toogleFavorites();
+                this.questionnaireLocalComponent.toggleFavorite();
                 break;
             case "group":
                 this.questionnaireLocalComponent.toggleGroup();
@@ -100,6 +99,10 @@ export class QuestionnairePage extends GenericPage {
                 break;
             case "delete":
                 this.questionnaireLocalComponent.delete();
+                break;
+            case "clipboard":
+                this.questionnaireLocalComponent.copyToClipboard();
+                this.toast(this.translate("Data copied to clipboard"));
                 break;
 
             default:
@@ -144,16 +147,12 @@ export class QuestionnairePage extends GenericPage {
         }
     }
 
-    toogleFavorites() {
-        this.questionnaireLocalComponent.toggleFavorite();
-    }
-
     searchInput(search: any) {
         let term = null;
         if (search) {
             term = search.target.value;
         }
-        let questionsFiltered = this.questionnaireLocalComponent.filterQuestions(term);
+        this.questionnaireLocalComponent.filterQuestions(term);
     }
 
     filtered() {
@@ -166,13 +165,13 @@ export class QuestionnairePage extends GenericPage {
             this.refresher.complete();
         }
         if (this.questionnaireLocalComponent.lastError) {
-            this.toast("No data could be retrived. Local data are displayed");
+            this.toast(this.translate("No data could be retrived. Local data are displayed"));
         }
     }
 
     saved() {
         if (this.questionnaireLocalComponent.lastError) {
-            this.toast("No internet connexion available. No data were saved!");
+            this.toast(this.translate("No internet connexion available. No data were saved!"));
         }
     }
 
