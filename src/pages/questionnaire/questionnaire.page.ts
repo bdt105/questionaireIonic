@@ -7,10 +7,12 @@ import { Toolbox, Rest } from 'bdt105toolbox/dist';
 import { QuestionnaireService } from '@appSharedServices/questionnaire.service';
 import { MiscellaneousService } from '@sharedServices/miscellaneous.service';
 import { QuestionnaireLocalComponent } from '@components/questionnaire/questionnaireLocal.component';
-import { Platform, NavParams, ViewController, ToastController, PopoverController, ModalController, NavController, AlertController } from 'ionic-angular';
+import { Platform, NavParams, ViewController, ToastController, PopoverController, ModalController, NavController, AlertController, App } from 'ionic-angular';
 import { MenuPopover } from '@components/popover/menu.popover';
 import { GenericPage } from '@pages/generic.page';
 import { ConnexionTokenService } from 'bdt105angularconnexionservice';
+import { TesterComponent } from '@components/tester/tester.component';
+import { TesterPage } from '@pages/tester/tester.page';
 
 @Component({
     selector: 'questionnaire-page',
@@ -35,7 +37,8 @@ export class QuestionnairePage extends GenericPage {
         public viewCtrl: ViewController,
         public navController: NavController,
         public modalController: ModalController,
-        public alertCtrl: AlertController,
+        public alertCtrl: AlertController, protected app: App,
+        
         public configurationService: ConfigurationService,
         public questionnaireService: QuestionnaireService,
         public miscellaneousService: MiscellaneousService,
@@ -189,5 +192,10 @@ export class QuestionnairePage extends GenericPage {
     doRefresh(refresher) {
         this.refresher = refresher;
         this.refresh();
+    }
+
+    resumeTest() {
+        this.navController.push(TesterPage, {"testToResume": this.questionnaire});
+        // this.app.getRootNav().setRoot(TesterPage, {"testToResume": this.questionnaire});
     }
 }

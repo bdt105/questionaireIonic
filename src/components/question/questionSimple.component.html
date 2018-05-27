@@ -18,7 +18,7 @@
             <ion-row *ngIf="showCustomAnswer">
                 <ion-col col-11>
                     <textarea *ngIf="question.type == 'text' || !question.type" autofocus type="text" [(ngModel)]="question.customAnswer" style="width: 90%; border:0"
-                        placeholder="{{translate('Enter your answer here and swipe to check it.')}}"></textarea>
+                        placeholder="{{translate('Enter your answer here and click next to check it.')}}"></textarea>
                     <ion-list radio-group *ngIf="question.type == 'radioButton'" [(ngModel)]="question.customAnswer">
                         <ion-item *ngFor="let answer of question.answers">
                             <ion-label>{{answer.answer}}</ion-label>
@@ -39,16 +39,24 @@
         </div>
         <ion-card-content *ngIf="question.checked" class="questionSimpleElement">
             <ion-row>
-                <ion-col style="font-size: 2em">
-                    <ion-icon *ngIf="question.status" color="success" name="thumbs-up"></ion-icon>
-                    <ion-icon *ngIf="!question.status" color="danger" name="thumbs-down"></ion-icon>
-                    <span *ngIf="question.status">{{translate('Correct')}}</span>
-                    <span *ngIf="!question.status">{{translate('Not correct')}}</span>
+                <ion-col>
+                    {{question.customAnswer}}
                 </ion-col>
             </ion-row>
             <ion-row>
                 <ion-col>
-                    {{question.customAnswer}}
+                    <ion-label *ngIf="!question.status">
+                        <ion-icon color="danger" name="thumbs-down"></ion-icon> {{translate('Is not correct')}}
+                        <button ion-button icon-left clear small (click)="toggleAnswers()">
+                            {{translate('See the answer')}}
+                        </button>
+                    </ion-label>
+                    <ion-label *ngIf="question.status">
+                        <ion-icon color="success" name="thumbs-up"></ion-icon> {{translate('Is correct')}}
+                        <button ion-button icon-left clear small (click)="toggleAnswers()">
+                            {{translate('See the answer')}}
+                        </button>
+                    </ion-label>
                 </ion-col>
             </ion-row>
         </ion-card-content>

@@ -19,6 +19,7 @@ export class TesterPage extends GenericPage {
     public firstLoad: any = true;
     public testOptions: any = {};
     public questionnaires: any = {};
+    public resume: boolean = false;
     public test: any;
     public pourcentage = 0;
 
@@ -34,13 +35,16 @@ export class TesterPage extends GenericPage {
 
     ngOnInit() {
         super.ngOnInit();
-        this.testOptions = this.navParams.get("testOptions");
-        this.questionnaires = this.navParams.get("questionnaires");
-        this.test = this.questionnaireService.newQuestionnaire("test");
-        this.test.questions = this.questionnaireService.generateQuestions(
-            this.questionnaires, this.testOptions.randomQuestions, this.testOptions.jeopardy,
-            this.testOptions.nbQuestions, this.testOptions.favoriteOnly);
-        this.test.indexCurrentQuestion = 0;
+        this.test = this.navParams.get("testToResume");
+        if (!this.test) {
+            this.testOptions = this.navParams.get("testOptions");
+            this.questionnaires = this.navParams.get("questionnaires");
+            this.test = this.questionnaireService.newQuestionnaire("test");
+            this.test.questions = this.questionnaireService.generateQuestions(
+                this.questionnaires, this.testOptions.randomQuestions, this.testOptions.jeopardy,
+                this.testOptions.nbQuestions, this.testOptions.favoriteOnly);
+            this.test.indexCurrentQuestion = 0;
+        }
     }
 
     updatePourcentage() {
@@ -55,8 +59,8 @@ export class TesterPage extends GenericPage {
             this.updatePourcentage();
         }
         q.acknowleged = true;
-        if (!q.status){
-            q.showAnswers = true;    
+        if (!q.status) {
+            q.showAnswers = true;
         }
     }
 
@@ -66,13 +70,13 @@ export class TesterPage extends GenericPage {
     }
 
 
-    dateStringDbToDate(date: string){
-        if (date){
+    dateStringDbToDate(date: string) {
+        if (date) {
             let d1 = new Date(parseInt(date.substr(0, 4)),
-            parseInt(date.substr(5, 2)) - 1, parseInt(date.substr(8, 2)), parseInt(date.substr(11, 2)), 
-            parseInt(date.substr(14, 2)), parseInt(date.substr(17, 2)));
+                parseInt(date.substr(5, 2)) - 1, parseInt(date.substr(8, 2)), parseInt(date.substr(11, 2)),
+                parseInt(date.substr(14, 2)), parseInt(date.substr(17, 2)));
             return d1;
-        }else{
+        } else {
             return null;
         }
     }
@@ -84,25 +88,25 @@ export class TesterPage extends GenericPage {
         let d1 = this.dateStringDbToDate(this.test.modificationDate).getTime();
         let d2 = this.dateStringDbToDate(this.test.creationDate).getTime();
         let diff = d1 - d2;
-        this.test.duration = {"milliseconds": diff, "hour": Math.trunc(diff / 1000 / 60 / 24), "minutes": Math.trunc(diff / 1000 / 60), "seconds": Math.trunc(diff / 1000)};
+        this.test.duration = { "milliseconds": diff, "hour": Math.trunc(diff / 1000 / 60 / 24), "minutes": Math.trunc(diff / 1000 / 60), "seconds": Math.trunc(diff / 1000) };
     }
 
-    private successSave(data: any){
+    private successSave(data: any) {
         this.toast(this.translate("Test saved!"));
     }
 
-    private failureSave(error: any){
-        this.toast(this.translate("Test could not be saved. Is there any internet connexion problem ?"));        
+    private failureSave(error: any) {
+        this.toast(this.translate("Test could not be saved. Is there any internet connexion problem ?"));
     }
 
-    save(){
-        if (this.test && !this.test.title){
-            this.test.title = this.miscellaneousService.translate(this.test.type) + " " + this.test.modificationDate; 
+    save() {
+        if (this.test && !this.test.title) {
+            this.test.title = this.miscellaneousService.translate(this.test.type) + " " + this.test.modificationDate;
         }
 
         this.test.score = this.questionnaireService.getScore(this.test.questions);
         this.test.options = this.testOptions;
-    
+
         this.questionnaireService.saveQuestionnaire(
             (data: any) => this.successSave(data),
             (error: any) => this.failureSave(error),

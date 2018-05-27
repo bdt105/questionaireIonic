@@ -137,4 +137,5 @@ export class SearchPage extends GenericPage {
         this.navController.push(QuestionnairesPage);
     }
 
+
 }
