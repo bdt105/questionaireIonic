@@ -19,7 +19,6 @@
         </button>
         <ion-title>{{translate('Questions')}}</ion-title>
         <ion-buttons end>
-            <menuNavBar></menuNavBar>
             <button ion-button icon-only (click)="toggleSearch()">
                 <ion-icon name="search"></ion-icon>
             </button>
@@ -31,6 +30,7 @@
             </button>
         </ion-buttons>
     </ion-navbar>
+    <menuNavBar></menuNavBar>
 </ion-header>
 
 <ion-content no-padding>

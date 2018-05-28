@@ -2,7 +2,7 @@
     <!-- Questionnaires -->
     <ion-spinner *ngIf="loading" style="margin: 10px"></ion-spinner>
     <div *ngFor="let questionnaire of questionnaires">
-        <button ion-item (click)="showQuestionnaire(questionnaire)">
+        <button *ngIf="!test" ion-item (click)="showQuestionnaire(questionnaire)">
             <h2 [style.color]="questionnaire.disabled ? 'grey' : 'black'">{{questionnaire.title}}</h2>
             <p>
                 <small>{{questionnaire.type}}</small>
@@ -11,11 +11,15 @@
                 <small>{{questionnaire.questions.length}}</small>
             </ion-badge>
         </button>
-        <ion-item *ngIf="test">
+        <!-- <ion-item *ngIf="test">
             <ion-label>
-                <small>{{translate('Add to you test')}}</small>
+                {{questionnaire.title}}
             </ion-label>
             <ion-toggle [(ngModel)]="questionnaire.test"></ion-toggle>
+        </ion-item> -->
+        <ion-item *ngIf="test">
+            <ion-label>{{questionnaire.title}}</ion-label>
+            <ion-checkbox [(ngModel)]="questionnaire.test"></ion-checkbox>
         </ion-item>
     </div>
 </ion-list>

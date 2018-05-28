@@ -72,15 +72,15 @@ export class QuestionnairePage extends GenericPage {
                     {
                         "label": this.translate('Group'),
                         "id": "group"
-                    }/*,
+                    },
                     {
                         "label": this.translate('Edit'),
                         "id": "edit"
                     },
                     {
-                        "label": this.translate('To clipboard'),
-                        "id": "clipboard"
-                    }*/,
+                        "label": this.translate('Duplicate'),
+                        "id": "duplicate"
+                    },
                     {
                         "label": this.translate('Delete'),
                         "id": "delete"
@@ -97,15 +97,14 @@ export class QuestionnairePage extends GenericPage {
             case "group":
                 this.questionnaireLocalComponent.toggleGroup();
                 break;
-            case "group":
+            case "edit":
                 this.questionnaireLocalComponent.toggleEdit();
                 break;
             case "delete":
                 this.questionnaireLocalComponent.delete();
                 break;
-            case "clipboard":
-                this.questionnaireLocalComponent.copyToClipboard();
-                this.toast(this.translate("Data copied to clipboard"));
+            case "duplicate":
+                this.questionnaireLocalComponent.duplicate()
                 break;
 
             default:

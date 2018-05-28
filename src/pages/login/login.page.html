@@ -4,9 +4,7 @@
             <ion-icon name="menu"></ion-icon>
         </button>
         <ion-title>{{translate("Login")}}</ion-title>
-        <ion-buttons end>
-            <menuNavBar></menuNavBar>
-        </ion-buttons>
     </ion-navbar>
+    <menuNavBar></menuNavBar>
 </ion-header>
 <iframe *ngIf="loadComplete" [src]="loginUrl | safe" style="margin-top: 100px; border: 0; width: 100%; height: 700px"></iframe>

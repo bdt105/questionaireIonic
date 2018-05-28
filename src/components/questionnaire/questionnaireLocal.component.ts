@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { QuestionnaireService } from '@appSharedServices/questionnaire.service';
 import { MiscellaneousService } from '@sharedServices/miscellaneous.service';
 import { QuestionnaireComponent } from '@appSharedComponents/questionnaire.component';
-import { AlertController } from 'ionic-angular';
+import { AlertController, ToastController } from 'ionic-angular';
 
 @Component({
     selector: 'questionnaireLocal',
@@ -13,8 +13,8 @@ import { AlertController } from 'ionic-angular';
 
 export class QuestionnaireLocalComponent extends QuestionnaireComponent {
 
-    constructor(public questionnaireService: QuestionnaireService, public miscellaneousService: MiscellaneousService, 
-        public alertCtrl: AlertController) {
+    constructor(public questionnaireService: QuestionnaireService, public miscellaneousService: MiscellaneousService,
+        public alertCtrl: AlertController, public toastController: ToastController) {
         super(questionnaireService, miscellaneousService);
     }
 
@@ -44,26 +44,30 @@ export class QuestionnaireLocalComponent extends QuestionnaireComponent {
         }
     }
 
-    copyToClipboard(){
-        //this.clipboard.copy(JSON.stringify(this.questionnaire));
+    toast(message: string, duration = 3000) {
+        let toast = this.toastController.create({
+            message: message,
+            duration: duration
+        });
+        toast.present();
     }
 
-    // deleteWithConfirmation() {
-    //     if (this.questionnaireService.isQuestionnaireEmpty(this.__questionnaire)){
-    //         this.delete(this.__questionnaire);
-    //     }else{
-    //         this.bsModalRef = this.modalService.show(ConfirmationComponent);
-    //         this.bsModalRef.content.modalRef = this.bsModalRef;
-    //         this.bsModalRef.content.title = this.translate("Deleting a questionnaire");
-    //         this.bsModalRef.content.message = this.translate("Are you sure you want to delete " + this.questionnaire.type + " '" + 
-    //             (this.questionnaire.title ? this.questionnaire.title : this.questionnaire.defaultTitle) + "'");
-    //         this.bsModalRef.content.button1Label = this.translate("Yes");
-    //         this.bsModalRef.content.button2Label = this.translate("No");
-    //         this.bsModalRef.content.button1Click.subscribe(result => {
-    //             this.delete(this.__questionnaire);
-    //         });
-    //     }
-    // }
+    private callbackToast(data: any, message: string) {
+        this.toast(message);
+    }
+
+    duplicate() {
+        this.questionnaireService.duplicateQuestionnaire(
+            (data: any) => this.callbackToast(data, this.translate("Questionnaire duplicated. Go back to list to see it.")),
+            (error: any) => this.callbackToast(error, this.translate("Questionnaire not duplicated")), this.questionnaire)
+    }
+
+    pasteQuestion(question: any){
+        let fake: Function = ()=>{
+
+        }
+        this.questionnaireService.pasteQuestion(fake, fake, )
+    }
 
     // importQuestion(){
     //     this.bsModalRef = this.modalService.show(ConfirmationComponent);

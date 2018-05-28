@@ -106,14 +106,24 @@
             {{translate('Edit')}}
         </button>
         <button ion-button icon-left clear small (click)="newQuestionAfterQuestion(question)">
-            {{translate('New question after')}}
+            {{translate('New')}}
         </button>
         <button ion-button icon-left clear small (click)="newAnswer()">
             {{translate('New answer')}}
         </button>
+        <button ion-button icon-left clear small (click)="copy()">
+            {{translate('Copy')}}
+        </button>
+        <button ion-button icon-left clear small (click)="paste()">
+            {{translate('Paste')}}
+        </button>
+        <button ion-button icon-left clear small (click)="delete()">
+            {{translate('Delete')}}
+        </button>
         <button ion-button icon-left clear small (click)="toggleFavorite()">
             <ion-icon *ngIf="!question.favorite" name="star-outline"></ion-icon>
             <ion-icon *ngIf="question.favorite" name="star"></ion-icon>
+            {{translate('Favorite')}}
         </button>
     </ion-card-content>
 </ion-card>

@@ -5,7 +5,7 @@ import { Toolbox, Rest } from 'bdt105toolbox/dist';
 import { QuestionnaireService } from '@appSharedServices/questionnaire.service';
 import { MiscellaneousService } from '@sharedServices/miscellaneous.service';
 import { QuestionLocalComponent } from '@components/question/questionLocal.component';
-import { AlertController } from 'ionic-angular';
+import { AlertController, ToastController } from 'ionic-angular';
 
 @Component({
     selector: 'questionSimple',
@@ -15,8 +15,10 @@ import { AlertController } from 'ionic-angular';
 
 export class QuestionSimpleComponent extends QuestionLocalComponent {
 
-    constructor(public questionnaireService: QuestionnaireService, public miscellaneousService: MiscellaneousService, alertController: AlertController){
-        super(questionnaireService, miscellaneousService, alertController);
+    constructor(public questionnaireService: QuestionnaireService, 
+        public miscellaneousService: MiscellaneousService, public alertController: AlertController, 
+        public toastController: ToastController){
+        super(questionnaireService, miscellaneousService, alertController, toastController);
     }
 
     ngOnInit(){

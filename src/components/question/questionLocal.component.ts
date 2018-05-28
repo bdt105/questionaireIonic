@@ -4,11 +4,14 @@ import { GenericComponent } from '@sharedComponents/generic.component';
 import { QuestionnaireService } from '@appSharedServices/questionnaire.service';
 import { MiscellaneousService } from '@sharedServices/miscellaneous.service';
 import { QuestionComponent } from '@appSharedComponents/question.component';
-import { AlertController } from 'ionic-angular';
+import { AlertController, ToastController } from 'ionic-angular';
 
 export class QuestionLocalComponent extends QuestionComponent {
 
-    constructor(public questionnaireService: QuestionnaireService, public miscellaneousService: MiscellaneousService, public alertCtrl: AlertController) {
+    constructor(public questionnaireService: QuestionnaireService, 
+        public miscellaneousService: MiscellaneousService, 
+        public alertCtrl: AlertController,
+        public toastController: ToastController) {
         super(questionnaireService, miscellaneousService);
     }
 
@@ -80,6 +83,18 @@ export class QuestionLocalComponent extends QuestionComponent {
             super.newQuestionAfterQuestion(question);
         }
     }    
+
+    copy(){
+        this.questionnaireService.copyQuestion(this.question);
+        this.toastController.create({message: this.translate("Question copied"), duration: 3000}).present();
+    }
+
+    paste(){
+        let fake: Function = ()=>{
+            this.toastController.create({message: this.translate("Question pasted"), duration: 3000}).present();
+        }
+        this.questionnaireService.pasteQuestion(fake, fake, this.questionnaire, this.question);
+    }
 
     
     // deleteWithConfirmationQuestion(question: any) {
