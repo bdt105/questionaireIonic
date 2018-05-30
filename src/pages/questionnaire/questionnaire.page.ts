@@ -38,7 +38,7 @@ export class QuestionnairePage extends GenericPage {
         public navController: NavController,
         public modalController: ModalController,
         public alertCtrl: AlertController, protected app: App,
-        
+
         public configurationService: ConfigurationService,
         public questionnaireService: QuestionnaireService,
         public miscellaneousService: MiscellaneousService,
@@ -71,19 +71,26 @@ export class QuestionnairePage extends GenericPage {
                     },
                     {
                         "label": this.translate('Group'),
-                        "id": "group"
+                        "id": "group",
+                        "type": "divider"
                     },
                     {
                         "label": this.translate('Edit'),
                         "id": "edit"
                     },
                     {
-                        "label": this.translate('Duplicate'),
-                        "id": "duplicate"
+                        "label": this.translate('Delete'),
+                        "id": "delete",
+                        "type": "divider"
+
                     },
                     {
-                        "label": this.translate('Delete'),
-                        "id": "delete"
+                        "label": this.translate('Paste question'),
+                        "id": "pasteQuestion"
+                    },
+                    {
+                        "label": this.translate('Duplicate'),
+                        "id": "duplicate"
                     }
                 ]
         };
@@ -105,6 +112,9 @@ export class QuestionnairePage extends GenericPage {
                 break;
             case "duplicate":
                 this.questionnaireLocalComponent.duplicate()
+                break;
+            case "pasteQuestion":
+                this.questionnaireLocalComponent.pasteQuestion();
                 break;
 
             default:
@@ -194,7 +204,7 @@ export class QuestionnairePage extends GenericPage {
     }
 
     resumeTest() {
-        this.navController.push(TesterPage, {"testToResume": this.questionnaire});
+        this.navController.push(TesterPage, { "testToResume": this.questionnaire });
         // this.app.getRootNav().setRoot(TesterPage, {"testToResume": this.questionnaire});
     }
 }

@@ -62,11 +62,11 @@ export class QuestionnaireLocalComponent extends QuestionnaireComponent {
             (error: any) => this.callbackToast(error, this.translate("Questionnaire not duplicated")), this.questionnaire)
     }
 
-    pasteQuestion(question: any){
+    pasteQuestion(){
         let fake: Function = ()=>{
 
         }
-        this.questionnaireService.pasteQuestion(fake, fake, )
+        this.questionnaireService.pasteQuestion(fake, fake, this.questionnaire);
     }
 
     // importQuestion(){
